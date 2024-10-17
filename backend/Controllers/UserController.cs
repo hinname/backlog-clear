@@ -19,8 +19,12 @@ public class UserController : ControllerBase
     [Route("{id}")]
     [ProducesResponseType(typeof(User),StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string),StatusCodes.Status404NotFound)]
-    public IActionResult GetUser(int id)
+    [ProducesResponseType(typeof(string),StatusCodes.Status400BadRequest)]
+    public IActionResult GetUser([FromHeader] string token, int id)
     {
+        if (token != "Bearer 123456")
+            return BadRequest("Token is invalid");
+        
         var response = new User()
         {
             Id = 1,
