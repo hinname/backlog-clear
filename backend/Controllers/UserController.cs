@@ -7,7 +7,7 @@ namespace BacklogClear.Controllers;
 public class UserController : ControllerBase
 {
     
-    private class User
+    public class User
     {
         public int Id { get; set; }
         public string? Name { get; set; }
@@ -35,5 +35,15 @@ public class UserController : ControllerBase
             return Ok(response);
         
         return NotFound("User not found");
+    }
+    
+    [HttpPost]
+    [ProducesResponseType(typeof(User),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    public IActionResult PostUser([FromBody] User user)
+    {
+        //CADASTRA USUÁRIO
+        return Ok(user);
     }
 }
