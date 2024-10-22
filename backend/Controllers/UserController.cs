@@ -46,4 +46,15 @@ public class UserController : ControllerBase
         //CADASTRA USUÁRIO
         return Ok(user);
     }
+    
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(User),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    public IActionResult PutUser(int id, [FromBody] User user)
+    {
+        //ATUALIZA USUÁRIO
+        return Ok(user);
+    }
 }
