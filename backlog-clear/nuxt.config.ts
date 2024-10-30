@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   $development: {
     app: {
       head: {
-        title: 'Dev' + ' | '
+        title: 'Dev'
       }
     }
   }
