@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BacklogClear.Application\BacklogClear.Application.csproj" />
+      <ProjectReference Include="..\BacklogClear.Communication\BacklogClear.Communication.csproj" />
+      <ProjectReference Include="..\BacklogClear.Exception\BacklogClear.Exception.csproj" />
+      <ProjectReference Include="..\BacklogClear.Infrastructure\BacklogClear.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,6 @@
+@BacklogClear.Api_HostAddress = http://localhost:5081
+
+GET {{BacklogClear.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
