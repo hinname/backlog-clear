@@ -1,5 +1,6 @@
 using BacklogClear.Application.UseCases.Games.Register;
 using BacklogClear.Communication.Requests;
+using BacklogClear.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BacklogClear.Api.Controllers;
@@ -19,11 +20,13 @@ public class GameController : ControllerBase
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(ex.Message);
+            var errorResponse = new ResponseErrorJson(ex.Message);
+            return BadRequest(errorResponse);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, ex.Message);
+            var errorResponse = new ResponseErrorJson(ex.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
         }
         
     }
