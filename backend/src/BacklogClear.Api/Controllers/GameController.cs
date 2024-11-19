@@ -11,9 +11,21 @@ public class GameController : ControllerBase
     [HttpPost]
     public IActionResult RegisterGame([FromBody] RequestRegisterGameJson request)
     {
-        var useCase = new RegisterGameUseCase();
-        var response = useCase.Execute(request);
-        return Created(string.Empty, response);
+        try
+        {
+            var useCase = new RegisterGameUseCase();
+            var response = useCase.Execute(request);
+            return Created(string.Empty, response);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+        
     }
 }
 
