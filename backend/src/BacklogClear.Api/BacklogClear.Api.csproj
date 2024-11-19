@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
@@ -16,6 +17,10 @@
       <ProjectReference Include="..\BacklogClear.Communication\BacklogClear.Communication.csproj" />
       <ProjectReference Include="..\BacklogClear.Exception\BacklogClear.Exception.csproj" />
       <ProjectReference Include="..\BacklogClear.Infrastructure\BacklogClear.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\" />
     </ItemGroup>
 
 </Project>
