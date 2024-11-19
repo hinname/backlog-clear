@@ -16,6 +16,12 @@ public class RegisterGameUseCase
     private void Validate(RequestRegisterGameJson request)
     {
         var validator = new RegisterGameValidator();
-        validator.ValidateAndThrow(request);
+        var result = validator.Validate(request);
+        
+        if (result.IsValid) return;
+        
+        var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
+        var errorMessage = string.Join(" ", errorMessages);
+        throw new ArgumentException(errorMessage);
     }
 }
