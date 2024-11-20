@@ -1,6 +1,7 @@
 using BacklogClear.Application.UseCases.Games.Register;
 using BacklogClear.Communication.Requests;
 using BacklogClear.Communication.Responses;
+using BacklogClear.Exception.ExceptionBase;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BacklogClear.Api.Controllers;
@@ -18,14 +19,14 @@ public class GameController : ControllerBase
             var response = useCase.Execute(request);
             return Created(string.Empty, response);
         }
-        catch (ArgumentException ex)
+        catch (ErrorOnValidationException ex)
         {
-            var errorResponse = new ResponseErrorJson(ex.Message);
+            var errorResponse = new ResponseErrorJson(ex.ErrorMessages);
             return BadRequest(errorResponse);
         }
-        catch (Exception ex)
+        catch
         {
-            var errorResponse = new ResponseErrorJson(ex.Message);
+            var errorResponse = new ResponseErrorJson("unknown error");
             return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
         }
         
