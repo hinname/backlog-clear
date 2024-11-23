@@ -12,6 +12,6 @@ public class RegisterGameValidator : AbstractValidator<RequestRegisterGameJson>
         RuleFor(game => game.Platform).NotEmpty().WithMessage(ResourceErrorMessages.PLATFORM_REQUIRED);
         RuleFor(game => game.Genre).NotEmpty().WithMessage(ResourceErrorMessages.GENRE_REQUIRED);
         RuleFor(game => game.ReleaseDate).LessThanOrEqualTo(DateTime.UtcNow).WithMessage(ResourceErrorMessages.RELEASE_DATE_MUST_BE_IN_PAST);
-        RuleFor(game => game.Status).IsInEnum().WithMessage(ResourceErrorMessages.STATUS_TYPE_INVALID);
+        RuleFor(game => game.Status).IsInEnum().WithMessage(ResourceErrorMessages.STATUS_INVALID);
     }
 }

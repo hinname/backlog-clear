@@ -27,7 +27,7 @@
     <data name="RELEASE_DATE_MUST_BE_IN_PAST" xml:space="preserve">
         <value>A data de lançamento precisa estar no passado</value>
     </data>
-    <data name="STATUS_TYPE_INVALID" xml:space="preserve">
+    <data name="STATUS_INVALID" xml:space="preserve">
         <value>O status inválido</value>
     </data>
     <data name="TITLE_REQUIRED" xml:space="preserve">

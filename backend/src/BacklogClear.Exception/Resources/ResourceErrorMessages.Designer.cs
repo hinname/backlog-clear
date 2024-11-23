@@ -75,9 +75,9 @@ namespace BacklogClear.Exception.Resources {
             }
         }
         
-        public static string STATUS_TYPE_INVALID {
+        public static string STATUS_INVALID {
             get {
-                return ResourceManager.GetString("STATUS_TYPE_INVALID", resourceCulture);
+                return ResourceManager.GetString("STATUS_INVALID", resourceCulture);
             }
         }
     }

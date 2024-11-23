@@ -33,7 +33,7 @@
     <data name="RELEASE_DATE_MUST_BE_IN_PAST" xml:space="preserve">
         <value>Release date must be in the past.</value>
     </data>
-    <data name="STATUS_TYPE_INVALID" xml:space="preserve">
+    <data name="STATUS_INVALID" xml:space="preserve">
         <value>Status is invalid.</value>
     </data>
 </root>
