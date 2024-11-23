@@ -22,4 +22,8 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\src\BacklogClear.Application\BacklogClear.Application.csproj" />
+    </ItemGroup>
+
 </Project>
