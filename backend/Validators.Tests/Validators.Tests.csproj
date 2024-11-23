@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CommonTestUtilities\CommonTestUtilities.csproj" />
       <ProjectReference Include="..\src\BacklogClear.Application\BacklogClear.Application.csproj" />
     </ItemGroup>
 
