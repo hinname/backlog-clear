@@ -1,7 +1,6 @@
 using BacklogClear.Application.UseCases.Games.Register;
-using BacklogClear.Communication.Enums;
-using BacklogClear.Communication.Requests;
 using CommonTestUtilities.Requests;
+using FluentAssertions;
 
 namespace Validators.Tests.Games.Register;
 
@@ -16,6 +15,6 @@ public class RegisterGameValidatorTests
         //Act
         var result = validator.Validate(request);
         //Assert
-        Assert.True(result.IsValid);
+        result.IsValid.Should().BeTrue();
     }
 }
