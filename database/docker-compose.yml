@@ -1,0 +1,14 @@
+services:
+  db :
+    image: mariadb:latest
+    container_name: my-mariadb
+    restart: always
+    environment:
+      MARIADB_USER: user
+      MARIADB_PASSWORD: mariadb123
+      MARIADB_ROOT_PASSWORD: mariadbroot123
+    volumes:
+      - "./mariadb-data/logs:/var/lib/mysql/logs/"
+      - "./mariadb-data/backlogcleardb:/var/lib/mysql/backlogcleardb/"
+    ports:
+      - 3306:3306
