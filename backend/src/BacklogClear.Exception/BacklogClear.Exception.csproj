@@ -30,4 +30,9 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Resources\Game\Register\" />
+      <Folder Include="Resources\User\Register\" />
+    </ItemGroup>
+
 </Project>

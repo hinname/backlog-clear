@@ -2,19 +2,19 @@ using BacklogClear.Communication.Requests;
 using BacklogClear.Communication.Responses;
 using BacklogClear.Exception.ExceptionBase;
 
-namespace BacklogClear.Application.UseCases.Games.Register;
+namespace BacklogClear.Application.UseCases.User.Register;
 
-public class RegisterGameUseCase
+public class RegisterUserUseCase
 {
-    public ResponseRegisteredGameJson Execute(RequestRegisterGameJson request)
+    public ResponseRegisteredUserJson Execute(RequestRegisterUserJson request)
     {
         Validate(request);
-        return new ResponseRegisteredGameJson();
+        return new ResponseRegisteredUserJson();
     }
     
-    private void Validate(RequestRegisterGameJson request)
+    private void Validate(RequestRegisterUserJson request)
     {
-        var validator = new RegisterGameValidator();
+        var validator = new RegisterUserValidator();
         var result = validator.Validate(request);
         
         if (result.IsValid) return;

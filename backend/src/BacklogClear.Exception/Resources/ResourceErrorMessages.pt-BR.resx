@@ -22,7 +22,7 @@
         <value>O gênero é obrigatório</value>
     </data>
     <data name="PLATFORM_REQUIRED" xml:space="preserve">
-        <value>A plataforma é obrigatório</value>
+        <value>A plataforma é obrigatória</value>
     </data>
     <data name="RELEASE_DATE_MUST_BE_IN_PAST" xml:space="preserve">
         <value>A data de lançamento precisa estar no passado</value>
