@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BacklogClear.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BacklogClear.Api", "src\BacklogClear.Api\BacklogClear.Api.csproj", "{FB2F555A-95C8-4E42-ADAA-798C129C8842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Tests", "Validators.Tests\Validators.Tests.csproj", "{7FA81D14-8F5B-4C9F-87D2-6682D94DA46D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Tests", "tests\Validators.Tests\Validators.Tests.csproj", "{7FA81D14-8F5B-4C9F-87D2-6682D94DA46D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestUtilities", "CommonTestUtilities\CommonTestUtilities.csproj", "{6FD32C84-A711-4768-843A-96A6FFB33184}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestUtilities", "tests\CommonTestUtilities\CommonTestUtilities.csproj", "{6FD32C84-A711-4768-843A-96A6FFB33184}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
