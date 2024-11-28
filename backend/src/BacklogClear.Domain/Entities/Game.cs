@@ -10,7 +10,4 @@ public class Game
     public string Genre { get; set; } = string.Empty;
     public DateTime ReleaseDate { get; set; }
     public Status Status { get; set; }
-    
-    public long UserId { get; set; }
-    public User User { get; set; }
 }
