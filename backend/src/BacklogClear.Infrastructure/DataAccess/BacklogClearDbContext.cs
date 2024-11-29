@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BacklogClear.Infrastructure.DataAccess;
 
-public class BacklogClearDbContext : DbContext
+internal class BacklogClearDbContext : DbContext
 {
     public DbSet<Game> Games { get; set; }
 
