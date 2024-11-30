@@ -9,5 +9,4 @@ public class RequestRegisterGameJson
     public string Genre { get; set; } = string.Empty;
     public DateTime ReleaseDate { get; set; }
     public Status Status { get; set; }
-    public int UserId { get; set; }
 }

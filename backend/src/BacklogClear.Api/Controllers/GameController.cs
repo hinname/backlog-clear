@@ -6,14 +6,15 @@ namespace BacklogClear.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class GameController : ControllerBase
+public class GameController: ControllerBase
 {
     [HttpPost]
-    public IActionResult RegisterGame([FromBody] RequestRegisterGameJson request)
+    public IActionResult RegisterGame(
+        [FromServices] IRegisterGameUseCase useCase,
+        [FromBody] RequestRegisterGameJson request
+    )
     {
-        var useCase = new RegisterGameUseCase();
         var response = useCase.Execute(request);
         return Created(string.Empty, response);
     }
 }
-

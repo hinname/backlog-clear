@@ -8,7 +8,7 @@ internal class GamesRepository: IGamesRepository
     public void Add(Game game)
     {
         var dbContext = new BacklogClearDbContext();
-        dbContext.Games.Add(game);
+        dbContext.games.Add(game);
         dbContext.SaveChanges();
     }
 }

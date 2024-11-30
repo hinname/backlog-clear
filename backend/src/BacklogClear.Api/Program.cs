@@ -1,5 +1,6 @@
 using BacklogClear.Api.Filters;
 using BacklogClear.Api.Middleware;
+using BacklogClear.Application;
 using BacklogClear.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
 builder.Services.AddInfrastructure();
+builder.Services.AddApplication();
 
 var app = builder.Build();
 

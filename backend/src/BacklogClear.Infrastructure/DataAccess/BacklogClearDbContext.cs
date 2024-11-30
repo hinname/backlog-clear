@@ -5,7 +5,7 @@ namespace BacklogClear.Infrastructure.DataAccess;
 
 internal class BacklogClearDbContext : DbContext
 {
-    public DbSet<Game> Games { get; set; }
+    public DbSet<Game> games { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
