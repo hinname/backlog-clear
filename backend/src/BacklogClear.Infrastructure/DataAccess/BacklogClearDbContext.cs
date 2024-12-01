@@ -6,7 +6,6 @@ namespace BacklogClear.Infrastructure.DataAccess;
 internal class BacklogClearDbContext : DbContext
 {
     public DbSet<Game> games { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var connectionString = "Server=localhost;Database=backlogcleardb;Uid=root;Pwd=mariadbroot123";
