@@ -1,3 +1,4 @@
+using BacklogClear.Domain.Repositories;
 using BacklogClear.Domain.Repositories.Games;
 using BacklogClear.Infrastructure.DataAccess;
 using BacklogClear.Infrastructure.DataAccess.Repositories;
@@ -16,6 +17,7 @@ public static class DependencyInjectionExtension
     }
     private static void AddRepositories(IServiceCollection services)
     {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IGamesRepository, GamesRepository>();
     }
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

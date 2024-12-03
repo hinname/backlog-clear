@@ -13,6 +13,5 @@ internal class GamesRepository: IGamesRepository
     public void Add(Game game)
     {
         _dbContext.games.Add(game);
-        _dbContext.SaveChanges();
     }
 }

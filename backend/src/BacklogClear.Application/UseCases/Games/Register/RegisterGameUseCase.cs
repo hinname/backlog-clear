@@ -1,6 +1,7 @@
 using BacklogClear.Communication.Requests;
 using BacklogClear.Communication.Responses;
 using BacklogClear.Domain.Entities;
+using BacklogClear.Domain.Repositories;
 using BacklogClear.Domain.Repositories.Games;
 using BacklogClear.Exception.ExceptionBase;
 
@@ -9,10 +10,13 @@ namespace BacklogClear.Application.UseCases.Games.Register;
 public class RegisterGameUseCase : IRegisterGameUseCase
 {
     private readonly IGamesRepository _repository;
-    public RegisterGameUseCase(IGamesRepository repository)
+    private readonly IUnitOfWork _unitOfWork;
+    public RegisterGameUseCase(IGamesRepository repository, IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
+    
     public ResponseRegisteredGameJson Execute(RequestRegisterGameJson request)
     {
         Validate(request);
@@ -25,6 +29,8 @@ public class RegisterGameUseCase : IRegisterGameUseCase
             Status = (Domain.Enums.Status)request.Status
         };
         _repository.Add(entity);
+        
+        _unitOfWork.Commit();
         return new ResponseRegisteredGameJson();
     }
     
