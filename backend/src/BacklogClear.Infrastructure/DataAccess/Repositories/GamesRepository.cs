@@ -10,8 +10,8 @@ internal class GamesRepository: IGamesRepository
     {
         _dbContext = dbContext;
     }
-    public void Add(Game game)
+    public async Task Add(Game game)
     {
-        _dbContext.games.Add(game);
+        await _dbContext.games.AddAsync(game);
     }
 }

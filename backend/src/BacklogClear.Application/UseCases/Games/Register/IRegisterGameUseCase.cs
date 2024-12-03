@@ -5,5 +5,5 @@ namespace BacklogClear.Application.UseCases.Games.Register;
 
 public interface IRegisterGameUseCase
 {
-    public ResponseRegisteredGameJson Execute(RequestRegisterGameJson request);
+    public Task<ResponseRegisteredGameJson> Execute(RequestRegisterGameJson request);
 }

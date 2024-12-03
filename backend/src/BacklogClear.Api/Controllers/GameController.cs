@@ -9,12 +9,12 @@ namespace BacklogClear.Api.Controllers;
 public class GameController: ControllerBase
 {
     [HttpPost]
-    public IActionResult RegisterGame(
+    public async Task<IActionResult> RegisterGame(
         [FromServices] IRegisterGameUseCase useCase,
         [FromBody] RequestRegisterGameJson request
     )
     {
-        var response = useCase.Execute(request);
+        var response = await useCase.Execute(request);
         return Created(string.Empty, response);
     }
 }

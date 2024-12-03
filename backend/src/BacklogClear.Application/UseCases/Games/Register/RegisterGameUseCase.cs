@@ -17,7 +17,7 @@ public class RegisterGameUseCase : IRegisterGameUseCase
         _unitOfWork = unitOfWork;
     }
     
-    public ResponseRegisteredGameJson Execute(RequestRegisterGameJson request)
+    public async Task<ResponseRegisteredGameJson> Execute(RequestRegisterGameJson request)
     {
         Validate(request);
         var entity = new Game()
@@ -28,9 +28,9 @@ public class RegisterGameUseCase : IRegisterGameUseCase
             ReleaseDate = request.ReleaseDate,
             Status = (Domain.Enums.Status)request.Status
         };
-        _repository.Add(entity);
+        await _repository.Add(entity);
         
-        _unitOfWork.Commit();
+        await _unitOfWork.Commit();
         return new ResponseRegisteredGameJson();
     }
     
