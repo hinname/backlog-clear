@@ -1,3 +1,4 @@
+using AutoMapper;
 using BacklogClear.Communication.Requests;
 using BacklogClear.Communication.Responses;
 using BacklogClear.Domain.Entities;
@@ -11,27 +12,24 @@ public class RegisterGameUseCase : IRegisterGameUseCase
 {
     private readonly IGamesRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
-    public RegisterGameUseCase(IGamesRepository repository, IUnitOfWork unitOfWork)
+    private readonly IMapper _mapper;
+    public RegisterGameUseCase(IGamesRepository repository, 
+        IUnitOfWork unitOfWork,
+        IMapper mapper)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
     
     public async Task<ResponseRegisteredGameJson> Execute(RequestRegisterGameJson request)
     {
         Validate(request);
-        var entity = new Game()
-        {
-            Title = request.Title,
-            Platform = request.Platform,
-            Genre = request.Genre,
-            ReleaseDate = request.ReleaseDate,
-            Status = (Domain.Enums.Status)request.Status
-        };
+        var entity = _mapper.Map<Game>(request);
         await _repository.Add(entity);
         
         await _unitOfWork.Commit();
-        return new ResponseRegisteredGameJson();
+        return _mapper.Map<ResponseRegisteredGameJson>(entity);
     }
     
     private void Validate(RequestRegisterGameJson request)
