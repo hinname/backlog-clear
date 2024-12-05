@@ -17,6 +17,6 @@ internal class GamesRepository: IGamesRepository
     }
     public async Task<List<Game>> GetAll()
     {
-        return await _dbContext.games.ToListAsync();
+        return await _dbContext.games.AsNoTracking().ToListAsync();
     }
 }
