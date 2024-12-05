@@ -1,12 +1,11 @@
 using BacklogClear.Communication.Enums;
 
-namespace BacklogClear.Communication.Requests;
+namespace BacklogClear.Communication.Responses.Games;
 
-public class RequestRegisterGameJson
+public class ResponseShortGameJson
 {
+    public long Id { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Platform { get; set; } = string.Empty;
-    public string Genre { get; set; } = string.Empty;
-    public DateTime ReleaseDate { get; set; }
     public Status Status { get; set; }
 }

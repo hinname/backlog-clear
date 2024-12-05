@@ -1,4 +1,4 @@
-using BacklogClear.Communication.Requests;
+using BacklogClear.Communication.Requests.Users;
 using FluentValidation;
 
 namespace BacklogClear.Application.UseCases.User.Register;

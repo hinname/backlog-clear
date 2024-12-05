@@ -1,5 +1,5 @@
-using BacklogClear.Communication.Requests;
-using BacklogClear.Communication.Responses;
+using BacklogClear.Communication.Requests.Users;
+using BacklogClear.Communication.Responses.Users;
 using BacklogClear.Exception.ExceptionBase;
 
 namespace BacklogClear.Application.UseCases.User.Register;

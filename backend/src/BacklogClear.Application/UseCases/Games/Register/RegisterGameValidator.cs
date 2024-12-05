@@ -1,4 +1,4 @@
-using BacklogClear.Communication.Requests;
+using BacklogClear.Communication.Requests.Games;
 using BacklogClear.Exception.Resources;
 using FluentValidation;
 

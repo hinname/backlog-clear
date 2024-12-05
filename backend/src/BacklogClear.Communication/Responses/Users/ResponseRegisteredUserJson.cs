@@ -1,4 +1,4 @@
-namespace BacklogClear.Communication.Responses;
+namespace BacklogClear.Communication.Responses.Users;
 
 public class ResponseRegisteredUserJson
 {

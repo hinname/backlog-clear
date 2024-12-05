@@ -1,6 +1,6 @@
 using AutoMapper;
-using BacklogClear.Communication.Requests;
-using BacklogClear.Communication.Responses;
+using BacklogClear.Communication.Requests.Games;
+using BacklogClear.Communication.Responses.Games;
 using BacklogClear.Domain.Entities;
 using BacklogClear.Domain.Repositories;
 using BacklogClear.Domain.Repositories.Games;

@@ -1,4 +1,4 @@
-namespace BacklogClear.Communication.Requests;
+namespace BacklogClear.Communication.Requests.Users;
 
 public class RequestRegisterUserJson
 {

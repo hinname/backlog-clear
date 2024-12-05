@@ -1,6 +1,8 @@
+using BacklogClear.Application.UseCases.Games.GetAll;
 using BacklogClear.Application.UseCases.Games.Register;
-using BacklogClear.Communication.Requests;
+using BacklogClear.Communication.Requests.Games;
 using BacklogClear.Communication.Responses;
+using BacklogClear.Communication.Responses.Games;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BacklogClear.Api.Controllers;
@@ -20,5 +22,17 @@ public class GameController: ControllerBase
     {
         var response = await useCase.Execute(request);
         return Created(string.Empty, response);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseGamesJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetAllGames([FromServices] IGetAllGamesUseCase useCase)
+    {
+        var result = await useCase.Execute();
+        if (result.Games.Any())
+            return Ok(result);
+        return NoContent();
     }
 }

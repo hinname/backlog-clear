@@ -1,4 +1,4 @@
-namespace BacklogClear.Communication.Responses;
+namespace BacklogClear.Communication.Responses.Games;
 
 public class ResponseRegisteredGameJson
 {

@@ -1,5 +1,6 @@
 using BacklogClear.Domain.Entities;
 using BacklogClear.Domain.Repositories.Games;
+using Microsoft.EntityFrameworkCore;
 
 namespace BacklogClear.Infrastructure.DataAccess.Repositories;
 
@@ -13,5 +14,9 @@ internal class GamesRepository: IGamesRepository
     public async Task Add(Game game)
     {
         await _dbContext.games.AddAsync(game);
+    }
+    public async Task<List<Game>> GetAll()
+    {
+        return await _dbContext.games.ToListAsync();
     }
 }

@@ -5,4 +5,5 @@ namespace BacklogClear.Domain.Repositories.Games;
 public interface IGamesRepository
 {
     Task Add(Game game);
+    Task<List<Game>> GetAll();
 }

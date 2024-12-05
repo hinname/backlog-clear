@@ -1,5 +1,5 @@
 using BacklogClear.Communication.Enums;
-using BacklogClear.Communication.Requests;
+using BacklogClear.Communication.Requests.Games;
 using Bogus;
 
 namespace CommonTestUtilities.Requests;

@@ -1,5 +1,5 @@
 using BacklogClear.Application.UseCases.User.Register;
-using BacklogClear.Communication.Requests;
+using BacklogClear.Communication.Requests.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BacklogClear.Api.Controllers;

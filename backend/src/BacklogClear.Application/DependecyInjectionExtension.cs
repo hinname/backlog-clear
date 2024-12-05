@@ -1,4 +1,5 @@
 using BacklogClear.Application.AutoMapper;
+using BacklogClear.Application.UseCases.Games.GetAll;
 using BacklogClear.Application.UseCases.Games.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,5 +21,6 @@ public static class DependecyInjectionExtension
     private static void AddUseCases(this IServiceCollection services)
     {
         services.AddScoped<IRegisterGameUseCase, RegisterGameUseCase>();
+        services.AddScoped<IGetAllGamesUseCase, GetAllGamesUseCase>();
     }
 }
