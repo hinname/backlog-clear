@@ -1,4 +1,5 @@
 using BacklogClear.Application.UseCases.Games.GetAll;
+using BacklogClear.Application.UseCases.Games.GetById;
 using BacklogClear.Application.UseCases.Games.Register;
 using BacklogClear.Communication.Requests.Games;
 using BacklogClear.Communication.Responses;
@@ -34,5 +35,20 @@ public class GameController: ControllerBase
         if (result.Games.Any())
             return Ok(result);
         return NoContent();
+    }
+    
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ResponseGameJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson),StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetGameById(
+        [FromServices] IGetGameByIdUseCase useCase,
+        [FromRoute] int id
+    )
+    {
+        var result = await useCase.Execute(id);
+        if (result is null)
+            return NotFound();
+        return Ok(result);
     }
 }

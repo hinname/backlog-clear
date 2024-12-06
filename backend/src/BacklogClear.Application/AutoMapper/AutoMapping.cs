@@ -22,5 +22,6 @@ public class AutoMapping : Profile
     {
         CreateMap<Game, ResponseRegisteredGameJson>();
         CreateMap<Game, ResponseShortGameJson>();
+        CreateMap<Game, ResponseGameJson>();
     }
 }

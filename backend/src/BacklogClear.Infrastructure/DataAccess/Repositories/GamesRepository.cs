@@ -19,4 +19,9 @@ internal class GamesRepository: IGamesRepository
     {
         return await _dbContext.games.AsNoTracking().ToListAsync();
     }
+    
+    public async Task<Game?> GetById(long id)
+    {
+        return await _dbContext.games.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

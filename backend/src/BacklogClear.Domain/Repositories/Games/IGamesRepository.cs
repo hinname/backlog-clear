@@ -6,4 +6,5 @@ public interface IGamesRepository
 {
     Task Add(Game game);
     Task<List<Game>> GetAll();
+    Task<Game?> GetById(long id);
 }
