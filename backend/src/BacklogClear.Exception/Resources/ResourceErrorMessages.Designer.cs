@@ -80,5 +80,11 @@ namespace BacklogClear.Exception.Resources {
                 return ResourceManager.GetString("STATUS_INVALID", resourceCulture);
             }
         }
+        
+        public static string GAME_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("GAME_NOT_FOUND", resourceCulture);
+            }
+        }
     }
 }

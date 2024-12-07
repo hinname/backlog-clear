@@ -4,5 +4,5 @@ namespace BacklogClear.Application.UseCases.Games.GetById;
 
 public interface IGetGameByIdUseCase
 {
-    Task<ResponseGameJson?> Execute(long id);
+    Task<ResponseGameJson> Execute(long id);
 }

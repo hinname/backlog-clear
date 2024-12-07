@@ -47,8 +47,6 @@ public class GameController: ControllerBase
     )
     {
         var result = await useCase.Execute(id);
-        if (result is null)
-            return NotFound();
         return Ok(result);
     }
 }

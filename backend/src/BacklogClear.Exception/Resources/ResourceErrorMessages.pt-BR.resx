@@ -19,21 +19,24 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="GENRE_REQUIRED" xml:space="preserve">
-        <value>O gênero é obrigatório</value>
+        <value>O gênero é obrigatório.</value>
     </data>
     <data name="PLATFORM_REQUIRED" xml:space="preserve">
-        <value>A plataforma é obrigatória</value>
+        <value>A plataforma é obrigatória.</value>
     </data>
     <data name="RELEASE_DATE_MUST_BE_IN_PAST" xml:space="preserve">
-        <value>A data de lançamento precisa estar no passado</value>
+        <value>A data de lançamento precisa estar no passado.</value>
     </data>
     <data name="STATUS_INVALID" xml:space="preserve">
-        <value>O status inválido</value>
+        <value>O status inválido.</value>
     </data>
     <data name="TITLE_REQUIRED" xml:space="preserve">
-        <value>O título é obrigatório</value>
+        <value>O título é obrigatório.</value>
     </data>
     <data name="UNKNOWN_ERROR" xml:space="preserve">
-        <value>Erro desconhecido</value>
+        <value>Erro desconhecido.</value>
+    </data>
+    <data name="GAME_NOT_FOUND" xml:space="preserve">
+        <value>Jogo não encontrado.</value>
     </data>
 </root>
