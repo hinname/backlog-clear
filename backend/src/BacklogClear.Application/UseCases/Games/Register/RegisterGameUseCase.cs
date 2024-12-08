@@ -10,10 +10,10 @@ namespace BacklogClear.Application.UseCases.Games.Register;
 
 public class RegisterGameUseCase : IRegisterGameUseCase
 {
-    private readonly IGamesRepository _repository;
+    private readonly IGamesWriteOnlyRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    public RegisterGameUseCase(IGamesRepository repository, 
+    public RegisterGameUseCase(IGamesWriteOnlyRepository repository, 
         IUnitOfWork unitOfWork,
         IMapper mapper)
     {

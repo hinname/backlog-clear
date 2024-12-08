@@ -8,10 +8,10 @@ namespace BacklogClear.Application.UseCases.Games.GetById;
 
 public class GetGameByIdUseCase : IGetGameByIdUseCase
 {
-    private readonly IGamesRepository _repository;
+    private readonly IGamesReadOnlyRepository _repository;
     private readonly IMapper _mapper;
     
-    public GetGameByIdUseCase(IGamesRepository repository, IMapper mapper)
+    public GetGameByIdUseCase(IGamesReadOnlyRepository repository, IMapper mapper)
     {
         _mapper = mapper;
         _repository = repository;

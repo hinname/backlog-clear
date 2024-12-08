@@ -7,9 +7,9 @@ namespace BacklogClear.Application.UseCases.Games.GetAll;
 
 public class GetAllGamesUseCase : IGetAllGamesUseCase
 {
-    private readonly IGamesRepository _repository;
+    private readonly IGamesReadOnlyRepository _repository;
     private readonly IMapper _mapper;
-    public GetAllGamesUseCase(IGamesRepository repository, IMapper mapper)
+    public GetAllGamesUseCase(IGamesReadOnlyRepository repository, IMapper mapper)
     {
         _mapper = mapper;
         _repository = repository;

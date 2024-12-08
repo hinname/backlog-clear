@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BacklogClear.Infrastructure.DataAccess.Repositories;
 
-internal class GamesRepository: IGamesRepository
+internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyRepository
 {
     private readonly BacklogClearDbContext _dbContext;
     public GamesRepository(BacklogClearDbContext dbContext)
