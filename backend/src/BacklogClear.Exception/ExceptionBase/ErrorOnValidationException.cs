@@ -1,11 +1,20 @@
+using System.Net;
+
 namespace BacklogClear.Exception.ExceptionBase;
 
 public class ErrorOnValidationException : BacklogClearException
 {
-    public List<string> ErrorMessages { get; set; }
+    private readonly List<string> _errorMessages;
+
+    public override int StatusCode => (int)HttpStatusCode.BadRequest;
 
     public ErrorOnValidationException(List<string> errorMessages): base(string.Empty)
     {
-        ErrorMessages = errorMessages;
+        _errorMessages = errorMessages;
+    }
+
+    public override List<string> GetErrorMessages()
+    {
+        return _errorMessages;
     }
 }

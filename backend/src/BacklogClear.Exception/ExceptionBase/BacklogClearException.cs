@@ -6,4 +6,7 @@ public abstract class BacklogClearException : SystemException
     {
         
     }
+    
+    public abstract int StatusCode { get; }
+    public abstract List<string> GetErrorMessages();
 }

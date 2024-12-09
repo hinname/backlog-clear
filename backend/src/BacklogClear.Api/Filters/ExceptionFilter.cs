@@ -22,29 +22,15 @@ public class ExceptionFilter : IExceptionFilter
     
     private void HandleProjectException(ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationException validationException)
-        {
-            var errorResponse = new ResponseErrorJson(validationException.ErrorMessages);
-            context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            context.Result = new BadRequestObjectResult(errorResponse);
-        }
-        else if (context.Exception is NotFoundException notFoundException)
-        {
-            var errorResponse = new ResponseErrorJson(notFoundException.Message);
-            context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-            context.Result = new NotFoundObjectResult(errorResponse);
-        }
-        else
-        {
-            var errorResponse = new ResponseErrorJson(context.Exception.Message);
-            context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            context.Result = new BadRequestObjectResult(errorResponse);
-        }
+        var exception = (BacklogClearException)context.Exception;
+        
+        context.HttpContext.Response.StatusCode = exception.StatusCode;
+        context.Result = new ObjectResult(new ResponseErrorJson(exception.GetErrorMessages()));
     }
 
     private void ThrowUnknownException(ExceptionContext context)
     {
-        var errorResponse = new ResponseErrorJson(context.Exception.InnerException.Message);
+        var errorResponse = new ResponseErrorJson(ResourceErrorMessages.UNKNOWN_ERROR);
         context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Result = new ObjectResult(errorResponse);
     }
