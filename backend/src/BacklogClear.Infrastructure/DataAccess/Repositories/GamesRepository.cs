@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BacklogClear.Infrastructure.DataAccess.Repositories;
 
-internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyRepository
+internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyRepository, IGamesDeleteOnlyRepository
 {
     private readonly BacklogClearDbContext _dbContext;
     public GamesRepository(BacklogClearDbContext dbContext)
@@ -23,5 +23,16 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
     public async Task<Game?> GetById(long id)
     {
         return await _dbContext.games.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+    }
+    
+    public async Task<bool> Delete(long id)
+    {
+        var game = await _dbContext.games.FirstOrDefaultAsync(x => x.Id == id);
+        if (game == null)
+        {
+            return false;
+        }
+        _dbContext.games.Remove(game);
+        return true;
     }
 }

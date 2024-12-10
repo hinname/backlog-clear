@@ -1,3 +1,4 @@
+using BacklogClear.Application.UseCases.Games.Delete;
 using BacklogClear.Application.UseCases.Games.GetAll;
 using BacklogClear.Application.UseCases.Games.GetById;
 using BacklogClear.Application.UseCases.Games.Register;
@@ -43,10 +44,23 @@ public class GameController: ControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetGameById(
         [FromServices] IGetGameByIdUseCase useCase,
-        [FromRoute] int id
+        [FromRoute] long id
     )
     {
         var result = await useCase.Execute(id);
         return Ok(result);
+    }
+    
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteGame(
+        [FromServices] IDeleteGameUseCase useCase,
+        [FromRoute] long id
+    )
+    {
+        await useCase.Execute(id);
+        return NoContent();
     }
 }
