@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace BacklogClear.Application.UseCases.Games.Register;
 
-public class RegisterGameValidator : AbstractValidator<RequestRegisterGameJson>
+public class RegisterGameValidator : AbstractValidator<RequestGameJson>
 {
     public RegisterGameValidator()
     {

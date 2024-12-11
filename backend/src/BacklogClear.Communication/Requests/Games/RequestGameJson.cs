@@ -2,7 +2,7 @@ using BacklogClear.Communication.Enums;
 
 namespace BacklogClear.Communication.Requests.Games;
 
-public class RequestRegisterGameJson
+public class RequestGameJson
 {
     public string Title { get; set; } = string.Empty;
     public string Platform { get; set; } = string.Empty;

@@ -22,7 +22,7 @@ public class RegisterGameUseCase : IRegisterGameUseCase
         _mapper = mapper;
     }
     
-    public async Task<ResponseRegisteredGameJson> Execute(RequestRegisterGameJson request)
+    public async Task<ResponseRegisteredGameJson> Execute(RequestGameJson request)
     {
         Validate(request);
         var entity = _mapper.Map<Game>(request);
@@ -32,7 +32,7 @@ public class RegisterGameUseCase : IRegisterGameUseCase
         return _mapper.Map<ResponseRegisteredGameJson>(entity);
     }
     
-    private void Validate(RequestRegisterGameJson request)
+    private void Validate(RequestGameJson request)
     {
         var validator = new RegisterGameValidator();
         var result = validator.Validate(request);

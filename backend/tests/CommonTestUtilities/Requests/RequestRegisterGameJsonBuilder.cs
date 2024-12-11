@@ -6,9 +6,9 @@ namespace CommonTestUtilities.Requests;
 
 public class RequestRegisterGameJsonBuilder
 {
-    public static RequestRegisterGameJson Build()
+    public static RequestGameJson Build()
     {
-        return new Faker<RequestRegisterGameJson>()
+        return new Faker<RequestGameJson>()
             .RuleFor(r => r.Title, faker => faker.Random.Words())
             .RuleFor(r => r.Platform, faker => faker.Random.Words())
             .RuleFor(r => r.Genre, faker => faker.Random.Words())
