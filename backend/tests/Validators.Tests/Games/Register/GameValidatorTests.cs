@@ -6,13 +6,13 @@ using FluentAssertions;
 
 namespace Validators.Tests.Games.Register;
 
-public class RegisterGameValidatorTests
+public class GameValidatorTests
 {
     [Fact]
     public void Success()
     {
         //Arrange
-        var validator = new RegisterGameValidator();
+        var validator = new GameValidator();
         var request = RequestRegisterGameJsonBuilder.Build();
         //Act
         var result = validator.Validate(request);
@@ -27,7 +27,7 @@ public class RegisterGameValidatorTests
     public void ErrorTitleEmpty(string title)
     {
         //Arrange
-        var validator = new RegisterGameValidator();
+        var validator = new GameValidator();
         var request = RequestRegisterGameJsonBuilder.Build();
         request.Title = title;
         //Act
@@ -42,7 +42,7 @@ public class RegisterGameValidatorTests
     public void ErrorPlatformEmpty()
     {
         //Arrange
-        var validator = new RegisterGameValidator();
+        var validator = new GameValidator();
         var request = RequestRegisterGameJsonBuilder.Build();
         request.Platform = string.Empty;
         //Act
@@ -57,7 +57,7 @@ public class RegisterGameValidatorTests
     public void ErrorGenreEmpty()
     {
         //Arrange
-        var validator = new RegisterGameValidator();
+        var validator = new GameValidator();
         var request = RequestRegisterGameJsonBuilder.Build();
         request.Genre = string.Empty;
         //Act
@@ -72,7 +72,7 @@ public class RegisterGameValidatorTests
     public void ErrorDateNotPast()
     {
         //Arrange
-        var validator = new RegisterGameValidator();
+        var validator = new GameValidator();
         var request = RequestRegisterGameJsonBuilder.Build();
         request.ReleaseDate = DateTime.UtcNow.AddDays(1);
         //Act
@@ -87,7 +87,7 @@ public class RegisterGameValidatorTests
     public void ErrorStatusTypeInvalid()
     {
         //Arrange
-        var validator = new RegisterGameValidator();
+        var validator = new GameValidator();
         var request = RequestRegisterGameJsonBuilder.Build();
         request.Status = (Status)700;
         //Act

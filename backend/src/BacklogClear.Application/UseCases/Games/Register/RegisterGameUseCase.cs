@@ -34,7 +34,7 @@ public class RegisterGameUseCase : IRegisterGameUseCase
     
     private void Validate(RequestGameJson request)
     {
-        var validator = new RegisterGameValidator();
+        var validator = new GameValidator();
         var result = validator.Validate(request);
         
         if (result.IsValid) return;

@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BacklogClear.Infrastructure.DataAccess.Repositories;
 
-internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyRepository, IGamesDeleteOnlyRepository
+internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyRepository, IGamesDeleteOnlyRepository, IGamesUpdateOnlyRepository
 {
     private readonly BacklogClearDbContext _dbContext;
+    private IGamesUpdateOnlyRepository _gamesUpdateOnlyRepositoryImplementation;
     public GamesRepository(BacklogClearDbContext dbContext)
     {
         _dbContext = dbContext;
@@ -20,9 +21,14 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
         return await _dbContext.games.AsNoTracking().ToListAsync();
     }
     
-    public async Task<Game?> GetById(long id)
+    async Task<Game?> IGamesReadOnlyRepository.GetById(long id)
     {
         return await _dbContext.games.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+    }
+    
+    async Task<Game?> IGamesUpdateOnlyRepository.GetById(long id)
+    {
+        return await _dbContext.games.FirstOrDefaultAsync(x => x.Id == id);
     }
     
     public async Task<bool> Delete(long id)
@@ -34,5 +40,9 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
         }
         _dbContext.games.Remove(game);
         return true;
+    }
+    public void Update(Game game)
+    {
+        _dbContext.games.Update(game);
     }
 }

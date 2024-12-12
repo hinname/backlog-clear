@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace BacklogClear.Application.UseCases.Games.Register;
 
-public class RegisterGameValidator : AbstractValidator<RequestGameJson>
+public class GameValidator : AbstractValidator<RequestGameJson>
 {
-    public RegisterGameValidator()
+    public GameValidator()
     {
         RuleFor(game => game.Title).NotEmpty().WithMessage(ResourceErrorMessages.TITLE_REQUIRED);
         RuleFor(game => game.Platform).NotEmpty().WithMessage(ResourceErrorMessages.PLATFORM_REQUIRED);
