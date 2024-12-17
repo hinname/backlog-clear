@@ -45,4 +45,10 @@
     <data name="END_DATE_NOT_ALLOWED" xml:space="preserve">
         <value>A data de término da jogatina não pode ser preenchida em um jogo fora do status "finalizado".</value>
     </data>
+    <data name="START_DATE_MUST_BE_IN_PAST" xml:space="preserve">
+        <value>A data de início da jogatina deve estar no passado.</value>
+    </data>
+    <data name="END_DATE_MUST_BE_IN_PAST" xml:space="preserve">
+        <value>A data de término da jogatina precisa estar no passado.</value>
+    </data>
 </root>

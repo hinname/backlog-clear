@@ -15,6 +15,9 @@ public class GameValidator : AbstractValidator<RequestGameJson>
         RuleFor(game => game.ReleaseDate).LessThanOrEqualTo(DateTime.UtcNow).WithMessage(ResourceErrorMessages.RELEASE_DATE_MUST_BE_IN_PAST);
         RuleFor(game => game.Status).IsInEnum().WithMessage(ResourceErrorMessages.STATUS_INVALID);
         RuleFor(game => game.StartDate).Empty().When(game => game.Status == Status.Backlog).WithMessage(ResourceErrorMessages.START_DATE_NOT_ALLOWED);
+        RuleFor(game => game.StartDate).LessThanOrEqualTo(DateTime.UtcNow).WithMessage(ResourceErrorMessages.START_DATE_MUST_BE_IN_PAST);
         RuleFor(game => game.EndDate).Empty().When(game => game.Status is Status.Backlog or Status.Playing).WithMessage(ResourceErrorMessages.END_DATE_NOT_ALLOWED);
+        RuleFor(game => game.EndDate).LessThanOrEqualTo(DateTime.UtcNow).WithMessage(ResourceErrorMessages.END_DATE_MUST_BE_IN_PAST);
+        
     }
 }
