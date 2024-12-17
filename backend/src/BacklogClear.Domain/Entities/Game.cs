@@ -10,4 +10,6 @@ public class Game
     public string Genre { get; set; } = string.Empty;
     public DateTime ReleaseDate { get; set; }
     public Status Status { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
 }
