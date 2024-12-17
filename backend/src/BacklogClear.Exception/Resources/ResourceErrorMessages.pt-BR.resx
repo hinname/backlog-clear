@@ -39,4 +39,10 @@
     <data name="GAME_NOT_FOUND" xml:space="preserve">
         <value>Jogo não encontrado.</value>
     </data>
+    <data name="START_DATE_NOT_ALLOWED" xml:space="preserve">
+        <value>A data início da jogatina não pode ser preenchida em jogo com status "backlog".</value>
+    </data>
+    <data name="END_DATE_NOT_ALLOWED" xml:space="preserve">
+        <value>A data de término da jogatina não pode ser preenchida em um jogo fora do status "finalizado".</value>
+    </data>
 </root>

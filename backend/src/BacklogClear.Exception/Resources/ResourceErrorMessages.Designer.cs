@@ -86,5 +86,17 @@ namespace BacklogClear.Exception.Resources {
                 return ResourceManager.GetString("GAME_NOT_FOUND", resourceCulture);
             }
         }
+        
+        public static string START_DATE_NOT_ALLOWED {
+            get {
+                return ResourceManager.GetString("START_DATE_NOT_ALLOWED", resourceCulture);
+            }
+        }
+        
+        public static string END_DATE_NOT_ALLOWED {
+            get {
+                return ResourceManager.GetString("END_DATE_NOT_ALLOWED", resourceCulture);
+            }
+        }
     }
 }
