@@ -3,6 +3,7 @@ using BacklogClear.Application.UseCases.Games.Delete;
 using BacklogClear.Application.UseCases.Games.GetAll;
 using BacklogClear.Application.UseCases.Games.GetById;
 using BacklogClear.Application.UseCases.Games.Register;
+using BacklogClear.Application.UseCases.Games.Register.Reports.Excel;
 using BacklogClear.Application.UseCases.Games.Update;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,5 +29,6 @@ public static class DependecyInjectionExtension
         services.AddScoped<IGetGameByIdUseCase, GetGameByIdUseCase>();
         services.AddScoped<IDeleteGameUseCase, DeleteGameUseCase>();
         services.AddScoped<IUpdateGameUseCase, UpdateGameUseCase>();
+        services.AddScoped<IGenerateGamesReportExcelUseCase, GenerateGamesReportExcelUseCase>();
     }
 }
