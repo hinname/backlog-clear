@@ -1,13 +1,23 @@
 using BacklogClear.Domain.Reports;
+using BacklogClear.Domain.Repositories.Games;
 using ClosedXML.Excel;
 
 namespace BacklogClear.Application.UseCases.Games.Register.Reports.Excel;
 
 public class GenerateGamesReportExcelUseCase : IGenerateGamesReportExcelUseCase
 {
+    private readonly IGamesReadOnlyRepository _repository;
+    public GenerateGamesReportExcelUseCase(IGamesReadOnlyRepository repository)
+    {
+        _repository = repository;
+    }
 
     public async Task<byte[]> Execute(DateOnly month)
     {
+        var games = await _repository.FilterByReleaseDate(month);
+        if (games.Count == 0)
+            return [];
+        
         var workbook = new XLWorkbook();
 
         workbook.Author = "Test";

@@ -45,4 +45,24 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
     {
         _dbContext.games.Update(game);
     }
+    
+    public async Task<List<Game>> FilterByReleaseDate(DateOnly releaseDate)
+    {
+        var startDate = new DateTime(year: releaseDate.Year, month: releaseDate.Month, day: 1).Date;
+        
+        var daysInMonth = DateTime.DaysInMonth(releaseDate.Year, releaseDate.Month);
+        var endDate = new DateTime(
+            year: releaseDate.Year, 
+            month: releaseDate.Month, 
+            day: daysInMonth,
+            hour: 23,
+            minute: 59,
+            second: 59);
+        return await _dbContext.games
+            .AsNoTracking()
+            .Where(game => game.ReleaseDate >= startDate && game.ReleaseDate <= endDate)
+            .OrderBy(game => game.ReleaseDate)
+            .ThenBy(game => game.Title)
+            .ToListAsync();
+    }
 }
