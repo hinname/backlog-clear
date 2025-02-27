@@ -1,3 +1,4 @@
+using BacklogClear.Domain.Enums;
 using BacklogClear.Domain.Reports;
 using BacklogClear.Domain.Repositories.Games;
 using ClosedXML.Excel;
@@ -28,10 +29,33 @@ public class GenerateGamesReportExcelUseCase : IGenerateGamesReportExcelUseCase
         
         InsertHeader(worksheet);
 
+        var row = 2;
+        foreach (var game in games)
+        {
+            worksheet.Cell($"A{row}").Value = game.Title;
+            worksheet.Cell($"B{row}").Value = game.Platform;
+            worksheet.Cell($"C{row}").Value = game.ReleaseDate;
+            worksheet.Cell($"D{row}").Value = ConvertStatusToString(game.Status);
+            
+            row++;
+        }
+
         var file = new MemoryStream();
         workbook.SaveAs(file);
 
         return file.ToArray();
+    }
+    
+    private string ConvertStatusToString(Status gameStatus)
+    {
+        return gameStatus switch
+        {
+            Status.Backlog => ResourceReportGenerationMessages.STATUS_BACKLOG,
+            Status.Playing => ResourceReportGenerationMessages.STATUS_PLAYING,
+            Status.Completed => ResourceReportGenerationMessages.STATUS_COMPLETED,
+            Status.Dropped => ResourceReportGenerationMessages.STATUS_DROPPED,
+            _ => string.Empty
+        };
     }
 
     private void InsertHeader(IXLWorksheet worksheet)

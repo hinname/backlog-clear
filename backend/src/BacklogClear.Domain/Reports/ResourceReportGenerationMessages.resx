@@ -30,4 +30,16 @@
     <data name="STATUS" xml:space="preserve">
         <value>Status</value>
     </data>
+    <data name="STATUS_BACKLOG" xml:space="preserve">
+        <value>Backlog</value>
+    </data>
+    <data name="STATUS_PLAYING" xml:space="preserve">
+        <value>Playing</value>
+    </data>
+    <data name="STATUS_COMPLETED" xml:space="preserve">
+        <value>Completed</value>
+    </data>
+    <data name="STATUS_DROPPED" xml:space="preserve">
+        <value>Dropped</value>
+    </data>
 </root>

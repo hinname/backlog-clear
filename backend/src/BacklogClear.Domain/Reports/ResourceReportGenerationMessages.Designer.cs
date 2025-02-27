@@ -68,5 +68,29 @@ namespace BacklogClear.Domain.Reports {
                 return ResourceManager.GetString("STATUS", resourceCulture);
             }
         }
+        
+        public static string STATUS_BACKLOG {
+            get {
+                return ResourceManager.GetString("STATUS_BACKLOG", resourceCulture);
+            }
+        }
+        
+        public static string STATUS_PLAYING {
+            get {
+                return ResourceManager.GetString("STATUS_PLAYING", resourceCulture);
+            }
+        }
+        
+        public static string STATUS_COMPLETED {
+            get {
+                return ResourceManager.GetString("STATUS_COMPLETED", resourceCulture);
+            }
+        }
+        
+        public static string STATUS_DROPPED {
+            get {
+                return ResourceManager.GetString("STATUS_DROPPED", resourceCulture);
+            }
+        }
     }
 }
