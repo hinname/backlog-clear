@@ -19,7 +19,7 @@ public class GenerateGamesReportExcelUseCase : IGenerateGamesReportExcelUseCase
         if (games.Count == 0)
             return [];
         
-        var workbook = new XLWorkbook();
+        using var workbook = new XLWorkbook();
 
         workbook.Author = "Test";
         workbook.Style.Font.FontSize = 12;
@@ -34,11 +34,16 @@ public class GenerateGamesReportExcelUseCase : IGenerateGamesReportExcelUseCase
         {
             worksheet.Cell($"A{row}").Value = game.Title;
             worksheet.Cell($"B{row}").Value = game.Platform;
+            
             worksheet.Cell($"C{row}").Value = game.ReleaseDate;
+            worksheet.Cell($"C{row}").Style.NumberFormat.Format = "dd/MM/yyyy";
+            
             worksheet.Cell($"D{row}").Value = ConvertStatusToString(game.Status);
             
             row++;
         }
+        
+        worksheet.Columns().AdjustToContents();
 
         var file = new MemoryStream();
         workbook.SaveAs(file);
