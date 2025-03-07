@@ -2,8 +2,18 @@
 
 @import "tailwindcss";
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@layer base {
+    body {
+        @apply text-white;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #080808;
+    }
+}
+
+
+@theme {
+    --font-sans: Raleway, sans-serif;
+    --font-serif: Georgia, serif;
 }
