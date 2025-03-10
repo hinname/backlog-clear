@@ -5,7 +5,9 @@ const route = useRoute();
 
 <template>
   <header class="flex items-center justify-between p-4">
-    <h1 class="font-extrabold text-4xl text-emerald-500">Backlog Clear</h1>
+    <h1 class="font-extrabold text-4xl text-emerald-500">
+      <nuxt-link to="/">Backlog Clear</nuxt-link>
+    </h1>
     <nav>
       <ul class="flex flex-wrap gap-6 mr-2">
         <li v-if="route.path == '/' || route.path == '/signup'">
