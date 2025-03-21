@@ -1,3 +1,6 @@
+using BacklogClear.Application.UseCases.Games.Reports.Pdf.Fonts;
+using PdfSharp.Fonts;
+
 namespace BacklogClear.Application.UseCases.Games.Register.Reports.Pdf;
 
 public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
@@ -6,6 +9,7 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
     public GenerateGamesReportPdfUseCase(IGamesReadOnlyRepository repository)
     {
         _repository = repository;
+        GlobalFontSettings.FontResolver = new GamesReportFontResolver();
     }
 
     public async Task<byte[]> Execute(DateOnly month)
