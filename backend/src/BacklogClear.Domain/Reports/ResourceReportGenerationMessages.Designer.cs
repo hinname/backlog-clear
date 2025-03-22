@@ -92,5 +92,11 @@ namespace BacklogClear.Domain.Reports {
                 return ResourceManager.GetString("STATUS_DROPPED", resourceCulture);
             }
         }
+        
+        public static string GAME_REPORT {
+            get {
+                return ResourceManager.GetString("GAME_REPORT", resourceCulture);
+            }
+        }
     }
 }

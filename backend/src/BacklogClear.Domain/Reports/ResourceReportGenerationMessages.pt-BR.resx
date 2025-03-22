@@ -42,4 +42,7 @@
     <data name="STATUS_DROPPED" xml:space="preserve">
         <value>Dropado</value>
     </data>
+    <data name="GAME_REPORT" xml:space="preserve">
+        <value>Relatorio de Jogos</value>
+    </data>
 </root>
