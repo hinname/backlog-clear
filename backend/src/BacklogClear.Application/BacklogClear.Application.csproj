@@ -20,4 +20,17 @@
       <PackageReference Include="PDFsharp-MigraDoc" Version="6.1.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Italic.ttf" />
+      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Italic.ttf" />
+      <None Remove="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Regular.ttf" />
+      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Regular.ttf" />
+      <None Remove="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Black.ttf" />
+      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Black.ttf" />
+      <None Remove="UseCases\Games\Reports\Pdf\Fonts\Raleway-Regular.ttf" />
+      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\Raleway-Regular.ttf" />
+      <None Remove="UseCases\Games\Reports\Pdf\Fonts\Raleway-Italic.ttf" />
+      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\Raleway-Italic.ttf" />
+    </ItemGroup>
+
 </Project>
