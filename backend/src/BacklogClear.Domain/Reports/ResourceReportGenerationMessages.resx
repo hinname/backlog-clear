@@ -45,4 +45,13 @@
     <data name="GAME_REPORT" xml:space="preserve">
         <value>Game Report</value>
     </data>
+    <data name="STARTED_PLAYING_DATE" xml:space="preserve">
+        <value>Started playing date</value>
+    </data>
+    <data name="FINISHED_PLAYING_DATE" xml:space="preserve">
+        <value>Finished playing date</value>
+    </data>
+    <data name="NOT_FINISHED" xml:space="preserve">
+        <value>not finished</value>
+    </data>
 </root>

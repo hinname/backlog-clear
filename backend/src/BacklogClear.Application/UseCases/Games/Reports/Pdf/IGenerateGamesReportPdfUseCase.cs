@@ -2,5 +2,5 @@ namespace BacklogClear.Application.UseCases.Games.Register.Reports.Pdf;
 
 public interface IGenerateGamesReportPdfUseCase
 {
-    Task<byte[]> Execute(DateOnly month);
+    Task<byte[]> Execute(DateOnly initialStartPlayingDate, DateOnly endingStartPlayingDate);
 }

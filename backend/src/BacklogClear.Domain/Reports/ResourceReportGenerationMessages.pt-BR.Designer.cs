@@ -98,5 +98,23 @@ namespace BacklogClear.Domain.Reports {
                 return ResourceManager.GetString("GAME_REPORT", resourceCulture);
             }
         }
+        
+        public static string STARTED_PLAYING_DATE {
+            get {
+                return ResourceManager.GetString("STARTED_PLAYING_DATE", resourceCulture);
+            }
+        }
+        
+        public static string FINISHED_PLAYING_DATE {
+            get {
+                return ResourceManager.GetString("FINISHED_PLAYING_DATE", resourceCulture);
+            }
+        }
+        
+        public static string NOT_FINISHED {
+            get {
+                return ResourceManager.GetString("NOT_FINISHED", resourceCulture);
+            }
+        }
     }
 }

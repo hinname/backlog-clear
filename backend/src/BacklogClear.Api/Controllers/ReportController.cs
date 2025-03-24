@@ -15,9 +15,10 @@ namespace BacklogClear.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetExcel(
             [FromServices] IGenerateGamesReportExcelUseCase useCase,
-            [FromHeader] DateOnly month)
+            [FromHeader] DateOnly initialStartPlayingDate,
+            [FromHeader] DateOnly endingStartPlayingDate)
         {
-            byte[] file = await useCase.Execute(month);
+            byte[] file = await useCase.Execute(initialStartPlayingDate, endingStartPlayingDate);
             
             if (file.Length == 0)
                 return NoContent();
@@ -30,9 +31,10 @@ namespace BacklogClear.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetPdf(
             [FromServices] IGenerateGamesReportPdfUseCase useCase,
-            [FromHeader] DateOnly month)
+            [FromHeader] DateOnly initialStartPlayingDate,
+            [FromHeader] DateOnly endingStartPlayingDate)
         {
-            byte[] file = await useCase.Execute(month);
+            byte[] file = await useCase.Execute(initialStartPlayingDate, endingStartPlayingDate);
             
             if (file.Length == 0)
                 return NoContent();

@@ -14,25 +14,40 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         GlobalFontSettings.FontResolver = new GamesReportFontResolver();
     }
 
-    public async Task<byte[]> Execute(DateOnly month)
+    public async Task<byte[]> Execute(DateOnly initialStartPlayingDate, DateOnly endingStartPlayingDate)
     {
-        var games = await _repository.FilterByReleaseDate(month);
+        //Tratando a data inicial e final para DateTime
+        var initialDate = initialStartPlayingDate.ToDateTime(new TimeOnly(
+            hour: 0,
+            minute: 0,
+            second: 0
+        ));
+        var endingDate = endingStartPlayingDate.ToDateTime(new TimeOnly(
+            hour: 23,
+            minute: 59,
+            second: 59
+        ));
+        
+        var games = await _repository.FilterByStartPlayingDate(initialDate, endingDate);
         if (games.Count == 0)
             return [];
         
-        var document = CreateDocument(month);
-        var page = CreatePage(document, month);
+        var document = CreateDocument();
+        var page = CreatePage(document, initialStartPlayingDate, endingStartPlayingDate);
+
+         var paragraph = page.AddParagraph();
+         
 
         return [];
     }
     
-    private Document CreateDocument(DateOnly month)
+    private Document CreateDocument()
     {
         var document = new Document
         {
             Info =
             {
-                Title = $"{month.ToString("Y")} - {ResourceReportGenerationMessages.GAME_REPORT}",
+                Title = $"{ResourceReportGenerationMessages.GAME_REPORT}",
                 Author = "Test"
             }
         };
@@ -43,7 +58,7 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         return document;
     }
     
-    private Section CreatePage(Document document, DateOnly month)
+    private Section CreatePage(Document document, DateOnly startDate, DateOnly endDate)
     {
         var section = document.AddSection();
         section.PageSetup = document.DefaultPageSetup.Clone();
@@ -55,8 +70,8 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         section.PageSetup.LeftMargin = 40;
         section.PageSetup.RightMargin = 40;
         
-        section.AddParagraph($"{month.ToString("Y")} - {ResourceReportGenerationMessages.GAME_REPORT}")
-            .Format.Font.Size = 16;
+        section.AddParagraph($"{ResourceReportGenerationMessages.GAME_REPORT} ({startDate.ToString("dd/MM/yyyy")} - {endDate.ToString("dd/MM/yyyy")})")
+                .Format.Font.Size = 16;
         
         return section;
     }
