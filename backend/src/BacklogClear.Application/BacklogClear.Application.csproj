@@ -22,15 +22,17 @@
 
     <ItemGroup>
       <None Remove="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Italic.ttf" />
-      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Italic.ttf" />
+      <EmbeddedResource Include="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Italic.ttf" />
       <None Remove="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Regular.ttf" />
-      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Regular.ttf" />
+      <EmbeddedResource Include="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Regular.ttf" />
       <None Remove="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Black.ttf" />
-      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Black.ttf" />
+      <EmbeddedResource Include="UseCases\Games\Reports\Pdf\Fonts\WorkSans-Black.ttf" />
       <None Remove="UseCases\Games\Reports\Pdf\Fonts\Raleway-Regular.ttf" />
-      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\Raleway-Regular.ttf" />
+      <EmbeddedResource Include="UseCases\Games\Reports\Pdf\Fonts\Raleway-Regular.ttf" />
       <None Remove="UseCases\Games\Reports\Pdf\Fonts\Raleway-Italic.ttf" />
-      <Resource Include="UseCases\Games\Reports\Pdf\Fonts\Raleway-Italic.ttf" />
+      <EmbeddedResource Include="UseCases\Games\Reports\Pdf\Fonts\Raleway-Italic.ttf" />
+      <None Remove="UseCases\Games\Reports\Pdf\Fonts\Raleway-Black.ttf" />
+      <EmbeddedResource Include="UseCases\Games\Reports\Pdf\Fonts\Raleway-Black.ttf" />
     </ItemGroup>
 
 </Project>

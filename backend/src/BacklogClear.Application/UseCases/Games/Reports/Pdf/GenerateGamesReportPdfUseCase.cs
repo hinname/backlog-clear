@@ -1,6 +1,7 @@
 using BacklogClear.Application.UseCases.Games.Reports.Pdf.Fonts;
 using BacklogClear.Domain.Reports;
 using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
 using PdfSharp.Fonts;
 
 namespace BacklogClear.Application.UseCases.Games.Register.Reports.Pdf;
@@ -35,10 +36,19 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         var document = CreateDocument();
         var page = CreatePage(document, initialStartPlayingDate, endingStartPlayingDate);
 
-         var paragraph = page.AddParagraph();
-         
+        var paragraph = page.AddParagraph();
+        var title = string.Format(
+            ResourceReportGenerationMessages.TOTAL_PLAYED_IN,
+            initialStartPlayingDate.ToString("dd/MM/yyyy"),
+            endingStartPlayingDate.ToString("dd/MM/yyyy")
+            ); 
+        paragraph.AddFormattedText(title, new Font{ Name = FontHelper.RALEWAY_REGULAR, Size = 14});
+        
+        paragraph.AddLineBreak();
+        
+        paragraph.AddFormattedText(games.Count.ToString(), new Font{ Name = FontHelper.WORKSANS_BLACK, Size = 50});
 
-        return [];
+        return RenderDocument(document);
     }
     
     private Document CreateDocument()
@@ -74,5 +84,19 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
                 .Format.Font.Size = 16;
         
         return section;
+    }
+    
+    private byte[] RenderDocument(Document document)
+    {
+        var renderer = new PdfDocumentRenderer(true)
+        {
+            Document = document
+        };
+        renderer.RenderDocument();
+        
+        using var stream = new MemoryStream();
+        renderer.PdfDocument.Save(stream, false);
+        
+        return stream.ToArray();
     }
 }

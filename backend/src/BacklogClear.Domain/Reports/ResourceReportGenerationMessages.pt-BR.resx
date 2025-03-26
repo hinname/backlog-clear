@@ -54,4 +54,7 @@
     <data name="NOT_FINISHED" xml:space="preserve">
         <value>não terminou</value>
     </data>
+    <data name="TOTAL_PLAYED_IN" xml:space="preserve">
+        <value>Jogos jogados entre {0} e {1}</value>
+    </data>
 </root>

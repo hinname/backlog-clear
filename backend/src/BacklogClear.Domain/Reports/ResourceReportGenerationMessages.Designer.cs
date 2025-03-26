@@ -116,5 +116,11 @@ namespace BacklogClear.Domain.Reports {
                 return ResourceManager.GetString("NOT_FINISHED", resourceCulture);
             }
         }
+        
+        public static string TOTAL_PLAYED_IN {
+            get {
+                return ResourceManager.GetString("TOTAL_PLAYED_IN", resourceCulture);
+            }
+        }
     }
 }
