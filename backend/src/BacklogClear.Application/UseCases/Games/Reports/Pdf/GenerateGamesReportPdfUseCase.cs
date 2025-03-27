@@ -35,8 +35,13 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         
         var document = CreateDocument();
         var page = CreatePage(document, initialStartPlayingDate, endingStartPlayingDate);
-
+        
+        var paragraphHeader = page.AddParagraph();
+        paragraphHeader.AddFormattedText("Hey, User!", new Font{ Name = FontHelper.RALEWAY_BLACK, Size = 16});
+        
         var paragraph = page.AddParagraph();
+        paragraph.Format.SpaceBefore = 40;
+        paragraph.Format.SpaceAfter = 40;
         var title = string.Format(
             ResourceReportGenerationMessages.TOTAL_PLAYED_IN,
             initialStartPlayingDate.ToString("dd/MM/yyyy"),
