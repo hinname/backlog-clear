@@ -35,23 +35,8 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         
         var document = CreateDocument();
         var page = CreatePage(document, initialStartPlayingDate, endingStartPlayingDate);
-        
-        var paragraphHeader = page.AddParagraph();
-        paragraphHeader.AddFormattedText("Hey, User!", new Font{ Name = FontHelper.RALEWAY_BLACK, Size = 16});
-        
-        var paragraph = page.AddParagraph();
-        paragraph.Format.SpaceBefore = 40;
-        paragraph.Format.SpaceAfter = 40;
-        var title = string.Format(
-            ResourceReportGenerationMessages.TOTAL_PLAYED_IN,
-            initialStartPlayingDate.ToString("dd/MM/yyyy"),
-            endingStartPlayingDate.ToString("dd/MM/yyyy")
-            ); 
-        paragraph.AddFormattedText(title, new Font{ Name = FontHelper.RALEWAY_REGULAR, Size = 14});
-        
-        paragraph.AddLineBreak();
-        
-        paragraph.AddFormattedText(games.Count.ToString(), new Font{ Name = FontHelper.WORKSANS_BLACK, Size = 50});
+        var totalGames = games.Count;
+        CreateHeader(page, initialStartPlayingDate, endingStartPlayingDate, totalGames);
 
         return RenderDocument(document);
     }
@@ -85,12 +70,31 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         section.PageSetup.LeftMargin = 40;
         section.PageSetup.RightMargin = 40;
         
-        section.AddParagraph($"{ResourceReportGenerationMessages.GAME_REPORT} ({startDate.ToString("dd/MM/yyyy")} - {endDate.ToString("dd/MM/yyyy")})")
-                .Format.Font.Size = 16;
-        
         return section;
     }
-    
+    private void CreateHeader(Section page, DateOnly startDate, DateOnly endDate, int totalGames)
+    {
+        
+        page.AddParagraph($"{ResourceReportGenerationMessages.GAME_REPORT} ({startDate.ToString("dd/MM/yyyy")} - {endDate.ToString("dd/MM/yyyy")})")
+                        .Format.Font.Size = 16;
+        
+        var paragraphHeader = page.AddParagraph();
+        paragraphHeader.AddFormattedText("Hey, User!", new Font{ Name = FontHelper.RALEWAY_BLACK, Size = 16});
+        
+        var paragraph = page.AddParagraph();
+        paragraph.Format.SpaceBefore = 40;
+        paragraph.Format.SpaceAfter = 40;
+        var title = string.Format(
+            ResourceReportGenerationMessages.TOTAL_PLAYED_IN,
+            startDate.ToString("dd/MM/yyyy"),
+            endDate.ToString("dd/MM/yyyy")
+        ); 
+        paragraph.AddFormattedText(title, new Font{ Name = FontHelper.RALEWAY_REGULAR, Size = 14});
+        
+        paragraph.AddLineBreak();
+        
+        paragraph.AddFormattedText(totalGames.ToString(), new Font{ Name = FontHelper.WORKSANS_BLACK, Size = 50});
+    }
     private byte[] RenderDocument(Document document)
     {
         var renderer = new PdfDocumentRenderer(true)
