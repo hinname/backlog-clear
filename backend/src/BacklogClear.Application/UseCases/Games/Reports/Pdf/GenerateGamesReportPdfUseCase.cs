@@ -1,6 +1,7 @@
 using BacklogClear.Application.UseCases.Games.Reports.Pdf.Fonts;
 using BacklogClear.Domain.Reports;
 using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using PdfSharp.Fonts;
 
@@ -37,6 +38,11 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         var page = CreatePage(document, initialStartPlayingDate, endingStartPlayingDate);
         var totalGames = games.Count;
         CreateHeader(page, initialStartPlayingDate, endingStartPlayingDate, totalGames);
+
+        foreach (var game in games)
+        {
+            var table = CreateTableGames(page);
+        }
 
         return RenderDocument(document);
     }
@@ -94,6 +100,16 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         paragraph.AddLineBreak();
         
         paragraph.AddFormattedText(totalGames.ToString(), new Font{ Name = FontHelper.WORKSANS_BLACK, Size = 50});
+    }
+    private Table CreateTableGames(Section page)
+    {
+        var table = page.AddTable();
+        table.AddColumn("180").Format.Alignment = ParagraphAlignment.Left; //startPlayingDate complete
+        table.AddColumn("120").Format.Alignment = ParagraphAlignment.Center; //Platform
+        table.AddColumn("120").Format.Alignment = ParagraphAlignment.Center; //Genre
+        table.AddColumn("95").Format.Alignment = ParagraphAlignment.Center; //Status
+
+        return table;
     }
     private byte[] RenderDocument(Document document)
     {

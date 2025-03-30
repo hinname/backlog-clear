@@ -1,6 +1,6 @@
 namespace BacklogClear.Application.UseCases.Games.Reports.Pdf.Fonts;
 
-public static class FontHelper
+public class FontHelper
 {
     public const string RALEWAY_REGULAR = "Raleway-Regular";
     public const string RALEWAY_BLACK = "Raleway-Black";
