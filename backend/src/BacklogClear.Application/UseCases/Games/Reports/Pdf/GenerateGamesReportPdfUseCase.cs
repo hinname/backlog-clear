@@ -1,3 +1,4 @@
+using BacklogClear.Application.UseCases.Games.Register.Reports.Pdf.Colors;
 using BacklogClear.Application.UseCases.Games.Reports.Pdf.Fonts;
 using BacklogClear.Domain.Reports;
 using MigraDoc.DocumentObjectModel;
@@ -42,6 +43,25 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         foreach (var game in games)
         {
             var table = CreateTableGames(page);
+            var row = table.AddRow();
+            row.Height = 25;
+            
+            row.Cells[0].AddParagraph(game.Title);
+            row.Cells[0].Format.Font = new Font { Name = FontHelper.RALEWAY_BLACK, Size = 14, Color = ColorsHelper.BLACK };
+            row.Cells[0].Format.Shading.Color = ColorsHelper.RED_LIGHT;
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[0].MergeRight = 2;
+            row.Cells[0].Format.LeftIndent = 20;
+            
+            row.Cells[3].AddParagraph(ResourceReportGenerationMessages.STATUS);
+            row.Cells[3].Format.Font = new Font { Name = FontHelper.RALEWAY_BLACK, Size = 14, Color = ColorsHelper.WHITE };
+            row.Cells[3].Format.Shading.Color = ColorsHelper.RED_DARK;
+            row.Cells[3].Format.Alignment = ParagraphAlignment.Right;
+
+            row = table.AddRow();
+            row.Height = 30;
+            row.Borders.Visible = false;
+
         }
 
         return RenderDocument(document);
