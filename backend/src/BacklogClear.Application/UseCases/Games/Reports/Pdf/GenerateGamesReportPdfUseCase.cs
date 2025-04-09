@@ -59,6 +59,26 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
             row.Cells[3].Format.Alignment = ParagraphAlignment.Right;
 
             row = table.AddRow();
+            row.Height = 25;
+            
+            row.Cells[0].AddParagraph(game.StartPlayingDate?.ToString("D") ?? string.Empty);
+            row.Cells[0].Format.Font = new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
+            row.Cells[0].Format.Shading.Color = ColorsHelper.GREEN_DARK;
+            row.Cells[0].Format.Alignment = ParagraphAlignment.Center;
+            row.Cells[0].Format.LeftIndent = 20;
+            
+            row.Cells[1].AddParagraph(game.Platform);
+            row.Cells[1].Format.Font = new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
+            row.Cells[1].Format.Shading.Color = ColorsHelper.GREEN_DARK;
+            row.Cells[1].Format.Alignment = ParagraphAlignment.Center;
+
+            row.Cells[2].AddParagraph(game.Genre);
+            row.Cells[2].Format.Font = new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
+            row.Cells[2].Format.Shading.Color = ColorsHelper.GREEN_DARK;
+            row.Cells[2].Format.Alignment = ParagraphAlignment.Center;
+            
+
+            row = table.AddRow();
             row.Height = 30;
             row.Borders.Visible = false;
 
