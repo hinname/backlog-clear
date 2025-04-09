@@ -10,6 +10,7 @@ namespace BacklogClear.Application.UseCases.Games.Register.Reports.Pdf;
 
 public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
 {
+    private const int HEIGHT_ROW_GAMES_TABLE = 25;
     private readonly IGamesReadOnlyRepository _repository;
     public GenerateGamesReportPdfUseCase(IGamesReadOnlyRepository repository)
     {
@@ -44,43 +45,25 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         {
             var table = CreateTableGames(page);
             var row = table.AddRow();
-            row.Height = 25;
+            row.Height = HEIGHT_ROW_GAMES_TABLE;
             
-            row.Cells[0].AddParagraph(game.Title);
-            row.Cells[0].Format.Font = new Font { Name = FontHelper.RALEWAY_BLACK, Size = 14, Color = ColorsHelper.BLACK };
-            row.Cells[0].Format.Shading.Color = ColorsHelper.RED_LIGHT;
-            row.Cells[0].Format.Alignment = ParagraphAlignment.Center;
-            row.Cells[0].MergeRight = 2;
-            row.Cells[0].Format.LeftIndent = 20;
+            AddGameTitle(row.Cells[0], game.Title);
+            AddHeaderForGameStatus(row.Cells[3]);
             
-            row.Cells[3].AddParagraph(ResourceReportGenerationMessages.STATUS);
-            row.Cells[3].Format.Font = new Font { Name = FontHelper.RALEWAY_BLACK, Size = 14, Color = ColorsHelper.WHITE };
-            row.Cells[3].Format.Shading.Color = ColorsHelper.RED_DARK;
-            row.Cells[3].Format.Alignment = ParagraphAlignment.Right;
-
             row = table.AddRow();
-            row.Height = 25;
+            row.Height = HEIGHT_ROW_GAMES_TABLE;
             
             row.Cells[0].AddParagraph(game.StartPlayingDate?.ToString("D") ?? string.Empty);
-            row.Cells[0].Format.Font = new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
-            row.Cells[0].Format.Shading.Color = ColorsHelper.GREEN_DARK;
-            row.Cells[0].Format.Alignment = ParagraphAlignment.Center;
+            SetStyleBaseForGameInformation(row.Cells[0]);
             row.Cells[0].Format.LeftIndent = 20;
             
             row.Cells[1].AddParagraph(game.Platform);
-            row.Cells[1].Format.Font = new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
-            row.Cells[1].Format.Shading.Color = ColorsHelper.GREEN_DARK;
-            row.Cells[1].Format.Alignment = ParagraphAlignment.Center;
+            SetStyleBaseForGameInformation(row.Cells[1]);
 
             row.Cells[2].AddParagraph(game.Genre);
-            row.Cells[2].Format.Font = new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
-            row.Cells[2].Format.Shading.Color = ColorsHelper.GREEN_DARK;
-            row.Cells[2].Format.Alignment = ParagraphAlignment.Center;
+            SetStyleBaseForGameInformation(row.Cells[2]);
             
-
-            row = table.AddRow();
-            row.Height = 30;
-            row.Borders.Visible = false;
+            addWhiteSpace(table);
 
         }
 
@@ -150,6 +133,34 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         table.AddColumn("95").Format.Alignment = ParagraphAlignment.Center; //Status
 
         return table;
+    }
+    private void AddGameTitle(Cell cell, string gameTitle)
+    {
+        cell.AddParagraph(gameTitle);
+        cell.Format.Font = new Font { Name = FontHelper.RALEWAY_BLACK, Size = 14, Color = ColorsHelper.BLACK };
+        cell.Format.Shading.Color = ColorsHelper.RED_LIGHT;
+        cell.Format.Alignment = ParagraphAlignment.Center;
+        cell.MergeRight = 2;
+        cell.Format.LeftIndent = 20;
+    }
+    private void AddHeaderForGameStatus(Cell cell)
+    {
+        cell.AddParagraph(ResourceReportGenerationMessages.STATUS);
+        cell.Format.Font = new Font { Name = FontHelper.RALEWAY_BLACK, Size = 14, Color = ColorsHelper.WHITE };
+        cell.Format.Shading.Color = ColorsHelper.RED_DARK;
+        cell.Format.Alignment = ParagraphAlignment.Right;
+    }
+    private void SetStyleBaseForGameInformation(Cell cell)
+    {
+        cell.Format.Font = new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
+        cell.Format.Shading.Color = ColorsHelper.GREEN_DARK;
+        cell.Format.Alignment = ParagraphAlignment.Center;
+    }
+    private void addWhiteSpace(Table table)
+    {
+        var row = table.AddRow();
+        row.Height = 30;
+        row.Borders.Visible = false;
     }
     private byte[] RenderDocument(Document document)
     {
