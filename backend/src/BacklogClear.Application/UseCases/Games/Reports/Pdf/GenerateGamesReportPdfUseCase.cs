@@ -1,5 +1,6 @@
 using BacklogClear.Application.UseCases.Games.Register.Reports.Pdf.Colors;
 using BacklogClear.Application.UseCases.Games.Reports.Pdf.Fonts;
+using BacklogClear.Domain.Extensions;
 using BacklogClear.Domain.Reports;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
@@ -10,7 +11,7 @@ namespace BacklogClear.Application.UseCases.Games.Register.Reports.Pdf;
 
 public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
 {
-    private const int HEIGHT_ROW_GAMES_TABLE = 25;
+    private const int HEIGHT_ROW_GAMES_TABLE = 16;
     private readonly IGamesReadOnlyRepository _repository;
     public GenerateGamesReportPdfUseCase(IGamesReadOnlyRepository repository)
     {
@@ -44,13 +45,16 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         foreach (var game in games)
         {
             var table = CreateTableGames(page);
+            
             var row = table.AddRow();
+            row.Borders.Visible = false;
             row.Height = HEIGHT_ROW_GAMES_TABLE;
             
             AddGameTitle(row.Cells[0], game.Title);
             AddHeaderForGameStatus(row.Cells[3]);
             
             row = table.AddRow();
+            row.Borders.Visible = false;
             row.Height = HEIGHT_ROW_GAMES_TABLE;
             
             row.Cells[0].AddParagraph(game.StartPlayingDate?.ToString("D") ?? string.Empty);
@@ -62,8 +66,10 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
 
             row.Cells[2].AddParagraph(game.Genre);
             SetStyleBaseForGameInformation(row.Cells[2]);
+
+            AddGameStatus(row.Cells[3], game.Status.StatusToString());
             
-            addWhiteSpace(table);
+            AddWhiteSpace(table);
 
         }
 
@@ -132,6 +138,10 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         table.AddColumn("120").Format.Alignment = ParagraphAlignment.Center; //Genre
         table.AddColumn("95").Format.Alignment = ParagraphAlignment.Center; //Status
 
+        table.Borders.Visible = false;
+        table.LeftPadding = 0;
+        table.RightPadding = 0;
+
         return table;
     }
     private void AddGameTitle(Cell cell, string gameTitle)
@@ -148,7 +158,7 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         cell.AddParagraph(ResourceReportGenerationMessages.STATUS);
         cell.Format.Font = new Font { Name = FontHelper.RALEWAY_BLACK, Size = 14, Color = ColorsHelper.WHITE };
         cell.Format.Shading.Color = ColorsHelper.RED_DARK;
-        cell.Format.Alignment = ParagraphAlignment.Right;
+        cell.Format.Alignment = ParagraphAlignment.Center;
     }
     private void SetStyleBaseForGameInformation(Cell cell)
     {
@@ -156,7 +166,15 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         cell.Format.Shading.Color = ColorsHelper.GREEN_DARK;
         cell.Format.Alignment = ParagraphAlignment.Center;
     }
-    private void addWhiteSpace(Table table)
+    private void AddGameStatus(Cell cell, string gameStatus)
+    {
+        
+        cell.AddParagraph(gameStatus);
+        cell.Format.Font = new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
+        cell.Format.Shading.Color = ColorsHelper.WHITE;
+        cell.Format.Alignment = ParagraphAlignment.Center;
+    }
+    private void AddWhiteSpace(Table table)
     {
         var row = table.AddRow();
         row.Height = 30;
