@@ -7,7 +7,7 @@ The API utilizes NuGet packages such as **FluentValidation** for validating inco
 
 #### Features
 
-- **CRUD** operations for games
-- **Domain-Driven Design** principles
-- **Unit tests**: The API is tested using **xUnit** and **FluentAssertions** to ensure the code works as expected
-- **Reports**: The API provides detailed reports in **PDF** and **Excel** formats, allowing users to easily share and analyze their game data
+- **CRUD** game operations: Create, Read, Update, and Delete games.
+- **Domain-Driven Design**: The API is designed using DDD principles, ensuring a clean separation of concerns and a well-structured codebase.
+- **Unit tests**: The API is tested using **xUnit** and **FluentAssertions** to ensure the code works as expected.
+- **Reports**: The API provides detailed reports in **PDF** and **Excel** formats, making it easy for users to share and analyze their game data.
