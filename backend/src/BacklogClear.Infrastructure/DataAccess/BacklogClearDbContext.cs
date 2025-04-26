@@ -6,5 +6,5 @@ namespace BacklogClear.Infrastructure.DataAccess;
 internal class BacklogClearDbContext : DbContext
 {
     public BacklogClearDbContext(DbContextOptions options) : base(options){}
-    public DbSet<Game> games { get; set; }
+    public DbSet<Game> Games { get; set; }
 }

@@ -14,36 +14,36 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
     }
     public async Task Add(Game game)
     {
-        await _dbContext.games.AddAsync(game);
+        await _dbContext.Games.AddAsync(game);
     }
     public async Task<List<Game>> GetAll()
     {
-        return await _dbContext.games.AsNoTracking().ToListAsync();
+        return await _dbContext.Games.AsNoTracking().ToListAsync();
     }
     
     async Task<Game?> IGamesReadOnlyRepository.GetById(long id)
     {
-        return await _dbContext.games.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.Games.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
     
     async Task<Game?> IGamesUpdateOnlyRepository.GetById(long id)
     {
-        return await _dbContext.games.FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.Games.FirstOrDefaultAsync(x => x.Id == id);
     }
     
     public async Task<bool> Delete(long id)
     {
-        var game = await _dbContext.games.FirstOrDefaultAsync(x => x.Id == id);
+        var game = await _dbContext.Games.FirstOrDefaultAsync(x => x.Id == id);
         if (game == null)
         {
             return false;
         }
-        _dbContext.games.Remove(game);
+        _dbContext.Games.Remove(game);
         return true;
     }
     public void Update(Game game)
     {
-        _dbContext.games.Update(game);
+        _dbContext.Games.Update(game);
     }
     
     // public async Task<List<Game>> FilterByReleaseDate(DateOnly releaseDate)
@@ -67,7 +67,7 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
     // }
     public async Task<List<Game>> FilterByStartPlayingDate(DateTime initialStartDate, DateTime finalStartDate)
     {
-        return await _dbContext.games
+        return await _dbContext.Games
             .AsNoTracking()
             .Where(game => game.StartPlayingDate >= initialStartDate && game.StartPlayingDate <= finalStartDate)
             .OrderBy(game => game.StartPlayingDate)

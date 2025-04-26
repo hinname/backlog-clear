@@ -12,4 +12,7 @@ public class Game
     public Status Status { get; set; }
     public DateTime? StartPlayingDate { get; set; }
     public DateTime? EndPlayingDate { get; set; }
+    
+    public long UserId { get; set; }
+    public User User { get; set; } = default!; //never null, but EF Core requires a default value
 }
