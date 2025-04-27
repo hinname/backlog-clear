@@ -2,6 +2,7 @@ using BacklogClear.Api.Filters;
 using BacklogClear.Api.Middleware;
 using BacklogClear.Application;
 using BacklogClear.Infrastructure;
+using BacklogClear.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,4 +32,12 @@ app.UseHttpsRedirection();
 //app.UseAuthorization();
 app.MapControllers();
 
+await MigrateDatabase();
+
 app.Run();
+
+async Task MigrateDatabase()
+{
+    await using var scope = app.Services.CreateAsyncScope(); //Creating a scope for the database context
+    await DatabaseMigration.MigrateDatabaseAsync(scope.ServiceProvider);
+}
