@@ -28,7 +28,7 @@
         <value>A data de lançamento precisa estar no passado.</value>
     </data>
     <data name="STATUS_INVALID" xml:space="preserve">
-        <value>O status inválido.</value>
+        <value>Status inválido.</value>
     </data>
     <data name="TITLE_REQUIRED" xml:space="preserve">
         <value>O título é obrigatório.</value>
@@ -50,5 +50,20 @@
     </data>
     <data name="END_DATE_MUST_BE_IN_PAST" xml:space="preserve">
         <value>A data de término da jogatina precisa estar no passado.</value>
+    </data>
+    <data name="USER_NAME_REQUIRED" xml:space="preserve">
+        <value>O nome é obrigatório.</value>
+    </data>
+    <data name="USER_EMAIL_REQUIRED" xml:space="preserve">
+        <value>O email é obrigatório.</value>
+    </data>
+    <data name="USER_PASSWORD_REQUIRED" xml:space="preserve">
+        <value>A senha é obrigatória.</value>
+    </data>
+    <data name="USER_PASSWORD_INVALID" xml:space="preserve">
+        <value>Senha inválida. Deve conter no mínimo 8 caracteres com letras, números e simbolos especiais.</value>
+    </data>
+    <data name="USER_EMAIL_INVALID" xml:space="preserve">
+        <value>Email inválido.</value>
     </data>
 </root>

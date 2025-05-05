@@ -51,4 +51,19 @@
     <data name="END_DATE_MUST_BE_IN_PAST" xml:space="preserve">
         <value>End played date must be in past.</value>
     </data>
+    <data name="USER_NAME_REQUIRED" xml:space="preserve">
+        <value>Name is required.</value>
+    </data>
+    <data name="USER_EMAIL_REQUIRED" xml:space="preserve">
+        <value>Email is required.</value>
+    </data>
+    <data name="USER_PASSWORD_REQUIRED" xml:space="preserve">
+        <value>Password is required.</value>
+    </data>
+    <data name="USER_PASSWORD_INVALID" xml:space="preserve">
+        <value>Password invalid. Must contain at least 8 characters with letters, numbers and special symbols.</value>
+    </data>
+    <data name="USER_EMAIL_INVALID" xml:space="preserve">
+        <value>Email is invalid.</value>
+    </data>
 </root>

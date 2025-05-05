@@ -110,5 +110,35 @@ namespace BacklogClear.Exception.Resources {
                 return ResourceManager.GetString("END_DATE_MUST_BE_IN_PAST", resourceCulture);
             }
         }
+        
+        public static string USER_NAME_REQUIRED {
+            get {
+                return ResourceManager.GetString("USER_NAME_REQUIRED", resourceCulture);
+            }
+        }
+        
+        public static string USER_EMAIL_REQUIRED {
+            get {
+                return ResourceManager.GetString("USER_EMAIL_REQUIRED", resourceCulture);
+            }
+        }
+        
+        public static string USER_PASSWORD_REQUIRED {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_REQUIRED", resourceCulture);
+            }
+        }
+        
+        public static string USER_PASSWORD_INVALID {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_INVALID", resourceCulture);
+            }
+        }
+        
+        public static string USER_EMAIL_INVALID {
+            get {
+                return ResourceManager.GetString("USER_EMAIL_INVALID", resourceCulture);
+            }
+        }
     }
 }

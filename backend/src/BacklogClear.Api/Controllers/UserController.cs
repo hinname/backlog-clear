@@ -1,5 +1,7 @@
-using BacklogClear.Application.UseCases.User.Register;
+using BacklogClear.Application.UseCases.Users.Register;
 using BacklogClear.Communication.Requests.Users;
+using BacklogClear.Communication.Responses;
+using BacklogClear.Communication.Responses.Games;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BacklogClear.Api.Controllers;
@@ -9,9 +11,12 @@ namespace BacklogClear.Api.Controllers;
 public class UserController : ControllerBase
 {
     [HttpPost]
-    public IActionResult RegisterUser([FromBody] RequestRegisterUserJson request)
+    [ProducesResponseType(typeof(ResponseRegisteredGameJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public IActionResult RegisterUser(
+        [FromServices] IRegisterUserUseCase useCase,
+        [FromBody] RequestRegisterUserJson request)
     {
-        var useCase = new RegisterUserUseCase();
         var response = useCase.Execute(request);
         return Created(string.Empty, response);
     }

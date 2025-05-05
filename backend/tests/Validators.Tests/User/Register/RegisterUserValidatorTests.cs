@@ -1,4 +1,4 @@
-using BacklogClear.Application.UseCases.User.Register;
+using BacklogClear.Application.UseCases.Users.Register;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
 

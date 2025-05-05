@@ -1,12 +1,20 @@
+using AutoMapper;
 using BacklogClear.Communication.Requests.Users;
 using BacklogClear.Communication.Responses.Users;
 using BacklogClear.Exception.ExceptionBase;
 
-namespace BacklogClear.Application.UseCases.User.Register;
+namespace BacklogClear.Application.UseCases.Users.Register;
 
-public class RegisterUserUseCase
+public class RegisterUserUseCase : IRegisterUserUseCase
 {
-    public ResponseRegisteredUserJson Execute(RequestRegisterUserJson request)
+    private readonly IMapper _mapper;
+    
+    public RegisterUserUseCase(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+    
+    public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         Validate(request);
         return new ResponseRegisteredUserJson();
