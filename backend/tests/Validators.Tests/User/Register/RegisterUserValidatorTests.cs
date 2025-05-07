@@ -39,7 +39,7 @@ public class RegisterUserValidatorTests
           //Arrange
           var validator = new RegisterUserValidator();
           var request = RequestRegisterUserJsonBuilder.Build();
-          request.Nickname = string.Empty;
+          request.Name = string.Empty;
           //Act
           var result = validator.Validate(request);
           //Assert

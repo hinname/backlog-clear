@@ -1,6 +1,6 @@
 namespace BacklogClear.Domain.Repositories.Users;
 
-public interface IUserReadOnlyRepository
+public interface IUsersReadOnlyRepository
 {
     Task<bool> ExistActiveUserWithEmail(string email);
 }

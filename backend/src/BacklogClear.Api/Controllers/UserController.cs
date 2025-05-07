@@ -13,11 +13,11 @@ public class UserController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredGameJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public IActionResult RegisterUser(
+    public async Task<IActionResult> RegisterUser(
         [FromServices] IRegisterUserUseCase useCase,
         [FromBody] RequestRegisterUserJson request)
     {
-        var response = useCase.Execute(request);
+        var response = await useCase.Execute(request);
         return Created(string.Empty, response);
     }
 }

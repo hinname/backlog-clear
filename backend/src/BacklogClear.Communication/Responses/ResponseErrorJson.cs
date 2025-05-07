@@ -9,8 +9,8 @@ public class ResponseErrorJson
         ErrorMessages = [errorMessage];
     }
 
-    public ResponseErrorJson(List<string> errorMessage)
+    public ResponseErrorJson(IEnumerable<string> errorMessage)
     {
-        ErrorMessages = errorMessage;
+        ErrorMessages = errorMessage.ToList();
     }
 }

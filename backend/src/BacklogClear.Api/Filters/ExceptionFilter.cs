@@ -18,6 +18,7 @@ public class ExceptionFilter : IExceptionFilter
         {
             ThrowUnknownException(context);
         }
+        context.ExceptionHandled = true;
     }
     
     private void HandleProjectException(ExceptionContext context)

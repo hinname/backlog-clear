@@ -1,15 +1,21 @@
+using BacklogClear.Domain.Entities;
 using BacklogClear.Domain.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace BacklogClear.Infrastructure.DataAccess.Repositories;
 
-internal class UsersRepository : IUserReadOnlyRepository
+internal class UsersRepository : IUsersReadOnlyRepository, IUsersWriteOnlyRepository
 {
     private readonly BacklogClearDbContext _dbContext;
     
     public UsersRepository(BacklogClearDbContext dbContext)
     {
         _dbContext = dbContext;
+    }
+    
+    public async Task Add(User user)
+    {
+        await _dbContext.Users.AddAsync(user);
     }
     
     public async Task<bool> ExistActiveUserWithEmail(string email)
