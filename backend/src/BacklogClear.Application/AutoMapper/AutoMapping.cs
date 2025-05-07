@@ -17,7 +17,9 @@ public class AutoMapping : Profile
     private void RequestToEntity()
     {
         CreateMap<RequestGameJson, Game>();
-        CreateMap<RequestRegisterUserJson, User>();
+        CreateMap<RequestRegisterUserJson, User>()
+            .ForMember(dest => dest.Password, config => config.Ignore());
+        //Password is not mapped to the entity, because it is hashed in the use case
     }
     
     private void EntityToResponse()

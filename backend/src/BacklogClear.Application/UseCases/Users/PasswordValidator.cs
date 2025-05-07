@@ -27,27 +27,19 @@ public class PasswordValidator<T> : PropertyValidator<T, string>
             context.MessageFormatter.AppendArgument(ERROR_MESSAGE_KEY, ResourceErrorMessages.USER_PASSWORD_REQUIRED);
             return false;
         }
-        if (password.Length < 8)
+        if (password.Length < 8 || !password.Any(char.IsLetter) || !password.Any(char.IsDigit))
         {
             context.MessageFormatter.AppendArgument(ERROR_MESSAGE_KEY, ResourceErrorMessages.USER_PASSWORD_INVALID);
             return false;
         }
-        if (!password.Any(char.IsLetter))
-        {
-            context.MessageFormatter.AppendArgument(ERROR_MESSAGE_KEY, ResourceErrorMessages.USER_PASSWORD_INVALID);
-            return false;
-        }
-        if (!password.Any(char.IsDigit))
-        {
-            context.MessageFormatter.AppendArgument(ERROR_MESSAGE_KEY, ResourceErrorMessages.USER_PASSWORD_INVALID);
-            return false;
-        }
+
         // Check if the password contains at least one special character
         if (!password.Any(c => !char.IsLetterOrDigit(c)))
         {
             context.MessageFormatter.AppendArgument(ERROR_MESSAGE_KEY, ResourceErrorMessages.USER_PASSWORD_INVALID);
             return false;
         }
+        
         return true;
     }
 

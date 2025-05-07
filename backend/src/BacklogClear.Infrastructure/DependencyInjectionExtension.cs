@@ -1,5 +1,6 @@
 using BacklogClear.Domain.Repositories;
 using BacklogClear.Domain.Repositories.Games;
+using BacklogClear.Domain.Security.Crytography;
 using BacklogClear.Infrastructure.DataAccess;
 using BacklogClear.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ public static class DependencyInjectionExtension
     {
         AddRepositories(services);
         AddDbContext(services, configuration);
+        AddSecurity(services);
     }
     private static void AddRepositories(IServiceCollection services)
     {
@@ -29,5 +31,9 @@ public static class DependencyInjectionExtension
         var serverVersion = new MySqlServerVersion(new Version(11, 6, 2));
         
         services.AddDbContext<BacklogClearDbContext>(config => config.UseMySql(connectionString, serverVersion));
+    }
+    private static void AddSecurity(this IServiceCollection services)
+    {
+        services.AddScoped<IPasswordEncripter, Security.BCrypt>();
     }
 }
