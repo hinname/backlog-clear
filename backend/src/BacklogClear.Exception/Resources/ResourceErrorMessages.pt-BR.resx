@@ -55,7 +55,7 @@
         <value>O nome é obrigatório.</value>
     </data>
     <data name="USER_EMAIL_REQUIRED" xml:space="preserve">
-        <value>O email é obrigatório.</value>
+        <value>O e-mail é obrigatório.</value>
     </data>
     <data name="USER_PASSWORD_REQUIRED" xml:space="preserve">
         <value>A senha é obrigatória.</value>
@@ -64,6 +64,9 @@
         <value>Senha inválida. Deve conter no mínimo 8 caracteres com letras, números e simbolos especiais.</value>
     </data>
     <data name="USER_EMAIL_INVALID" xml:space="preserve">
-        <value>Email inválido.</value>
+        <value>E-mail inválido.</value>
+    </data>
+    <data name="USER_EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+        <value>Esse e-mail já está sendo usado.</value>
     </data>
 </root>

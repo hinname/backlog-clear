@@ -140,5 +140,11 @@ namespace BacklogClear.Exception.Resources {
                 return ResourceManager.GetString("USER_EMAIL_INVALID", resourceCulture);
             }
         }
+        
+        internal static string USER_EMAIL_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("USER_EMAIL_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
     }
 }

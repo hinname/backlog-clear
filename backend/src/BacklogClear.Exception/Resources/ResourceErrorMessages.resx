@@ -55,7 +55,7 @@
         <value>Name is required.</value>
     </data>
     <data name="USER_EMAIL_REQUIRED" xml:space="preserve">
-        <value>Email is required.</value>
+        <value>E-mail is required.</value>
     </data>
     <data name="USER_PASSWORD_REQUIRED" xml:space="preserve">
         <value>Password is required.</value>
@@ -64,6 +64,9 @@
         <value>Password invalid. Must contain at least 8 characters with letters, numbers and special symbols.</value>
     </data>
     <data name="USER_EMAIL_INVALID" xml:space="preserve">
-        <value>Email is invalid.</value>
+        <value>E-mail is invalid.</value>
+    </data>
+    <data name="USER_EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+        <value>E-mail already exists.</value>
     </data>
 </root>
