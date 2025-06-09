@@ -2,8 +2,10 @@ using BacklogClear.Domain.Repositories;
 using BacklogClear.Domain.Repositories.Games;
 using BacklogClear.Domain.Repositories.Users;
 using BacklogClear.Domain.Security.Crytography;
+using BacklogClear.Domain.Security.Tokens;
 using BacklogClear.Infrastructure.DataAccess;
 using BacklogClear.Infrastructure.DataAccess.Repositories;
+using BacklogClear.Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,7 @@ public static class DependencyInjectionExtension
         AddRepositories(services);
         AddDbContext(services, configuration);
         AddSecurity(services);
+        AddToken(services, configuration);
     }
     private static void AddRepositories(IServiceCollection services)
     {
@@ -39,5 +42,13 @@ public static class DependencyInjectionExtension
     private static void AddSecurity(this IServiceCollection services)
     {
         services.AddScoped<IPasswordEncripter, Security.Cryptography.BCrypt>();
+    }
+
+    private static void AddToken(IServiceCollection services, IConfiguration configuration)
+    {
+        var expirationTime = configuration.GetValue<uint>("Settings:Jwt:ExpiresInMinutes");
+        var signinKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
+
+        services.AddScoped<IAccessTokenGenerator>(config => new JwtTokenGenerator(expirationTime, signinKey!));
     }
 }
