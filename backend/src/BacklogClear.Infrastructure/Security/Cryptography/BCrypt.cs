@@ -1,7 +1,7 @@
 using BacklogClear.Domain.Security.Crytography;
 using BCryptNet = BCrypt.Net.BCrypt;
 
-namespace BacklogClear.Infrastructure.Security;
+namespace BacklogClear.Infrastructure.Security.Cryptography;
 
 internal class BCrypt: IPasswordEncripter
 {
