@@ -9,7 +9,6 @@ services:
       MARIADB_ROOT_PASSWORD: mariadbroot123
       MARIADB_DATABASE: backlogcleardb
     volumes:
-      - "./database/mariadb-data/logs:/var/lib/mysql/logs/"
-      - "./database/mariadb-data/backlogcleardb:/var/lib/mysql/backlogcleardb/"
+      - "./database/mariadb-data/:/var/lib/mysql/"
     ports:
       - 3306:3306
