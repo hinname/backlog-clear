@@ -6,6 +6,7 @@ using BacklogClear.Application.UseCases.Games.Register;
 using BacklogClear.Application.UseCases.Games.Register.Reports.Excel;
 using BacklogClear.Application.UseCases.Games.Register.Reports.Pdf;
 using BacklogClear.Application.UseCases.Games.Update;
+using BacklogClear.Application.UseCases.Login.DoLogin;
 using BacklogClear.Application.UseCases.Users.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -38,6 +39,10 @@ public static class DependecyInjectionExtension
         
         #region users
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+        #endregion
+
+        #region login
+        services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
         #endregion
     }
 }

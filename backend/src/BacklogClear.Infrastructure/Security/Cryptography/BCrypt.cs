@@ -9,4 +9,9 @@ internal class BCrypt: IPasswordEncripter
     {
         return BCryptNet.HashPassword(password);
     }
+    
+    public bool Verify(string password, string hashedPassword)
+    {
+        return BCryptNet.Verify(password, hashedPassword);
+    }
 }

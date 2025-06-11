@@ -69,4 +69,7 @@
     <data name="USER_EMAIL_ALREADY_REGISTERED" xml:space="preserve">
         <value>Esse e-mail já está sendo usado.</value>
     </data>
+    <data name="LOGIN_EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
+        <value>Login ou senha invalidos.</value>
+    </data>
 </root>
