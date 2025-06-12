@@ -6,12 +6,14 @@ using BacklogClear.Application.UseCases.Games.Update;
 using BacklogClear.Communication.Requests.Games;
 using BacklogClear.Communication.Responses;
 using BacklogClear.Communication.Responses.Games;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BacklogClear.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class GameController: ControllerBase
 {
     [HttpPost]
