@@ -25,6 +25,8 @@ public class DoLoginUseCase: IDoLoginUseCase
     
     public async Task<ResponseRegisteredUserJson> Execute(RequestLoginJson request)
     {
+        await Validate(request);
+        
         var user = await _repository.GetUserByEmail(request.Email);
         
         if (user is null)
@@ -43,5 +45,16 @@ public class DoLoginUseCase: IDoLoginUseCase
             Email = user.Email,
             Token = _accessTokenGenerator.Generate(user)
         };
+    }
+
+    private async Task Validate(RequestLoginJson request)
+    {
+        var validator = new DoLoginValidator();
+        var result = await validator.ValidateAsync(request);
+        
+        if (result.IsValid) return;
+        
+        var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
+        throw new ErrorOnValidationException(errorMessages);
     }
 }

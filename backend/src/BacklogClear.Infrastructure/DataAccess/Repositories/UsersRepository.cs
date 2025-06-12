@@ -26,6 +26,6 @@ internal class UsersRepository : IUsersReadOnlyRepository, IUsersWriteOnlyReposi
 
     public async Task<User?> GetUserByEmail(string email)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Email.Equals(email));
     }
 }

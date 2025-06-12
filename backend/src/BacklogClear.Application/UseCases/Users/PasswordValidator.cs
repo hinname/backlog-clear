@@ -34,7 +34,7 @@ public class PasswordValidator<T> : PropertyValidator<T, string>
         }
 
         // Check if the password contains at least one special character
-        if (!password.Any(c => !char.IsLetterOrDigit(c)))
+        if (password.All(char.IsLetterOrDigit))
         {
             context.MessageFormatter.AppendArgument(ERROR_MESSAGE_KEY, ResourceErrorMessages.USER_PASSWORD_INVALID);
             return false;
