@@ -1,8 +1,11 @@
+using System.Text;
 using BacklogClear.Api.Filters;
 using BacklogClear.Api.Middleware;
 using BacklogClear.Application;
 using BacklogClear.Infrastructure;
 using BacklogClear.Infrastructure.Migrations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,23 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
+// Configure authentication and authorization
+var signingKey = builder.Configuration.GetValue<string>("Settings:Jwt:SigningKey");
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(config =>
+{
+    config.TokenValidationParameters = new()
+    {
+        ValidateIssuer = false, // Issuer is the entity that creates the token, we are not validating it here
+        ValidateAudience = false, // Audience is the entity that the token is intended for, we are not validating it here
+        ClockSkew = TimeSpan.Zero, // Clock skew is the time allowed for the token to be valid after its expiration time, we set it to zero
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey!)) // The key used to sign the token, it must match the key used to create the token
+    };
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,7 +49,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<CultureMiddleware>();
 app.UseHttpsRedirection();
-//app.UseAuthorization();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
 await MigrateDatabase();
