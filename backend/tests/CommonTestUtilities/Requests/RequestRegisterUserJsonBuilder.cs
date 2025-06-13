@@ -8,8 +8,8 @@ public class RequestRegisterUserJsonBuilder
     public static RequestRegisterUserJson Build()
     {
         return new Faker<RequestRegisterUserJson>()
-            .RuleFor(r => r.Email, faker => faker.Internet.Email())
-            .RuleFor(r => r.Name, faker => faker.Internet.UserName())
-            .RuleFor(r => r.Password, faker => faker.Internet.Password());
+            .RuleFor(requestUser => requestUser.Name, faker => faker.Internet.UserName())
+            .RuleFor(requestUser => requestUser.Email, (faker, requestUser) => faker.Internet.Email(requestUser.Name))
+            .RuleFor(requestUser => requestUser.Password, faker => faker.Internet.Password(prefix: "!Aa1"));
     }
 }
