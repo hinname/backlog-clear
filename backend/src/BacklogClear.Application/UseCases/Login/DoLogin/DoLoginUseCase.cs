@@ -10,15 +10,15 @@ namespace BacklogClear.Application.UseCases.Login.DoLogin;
 public class DoLoginUseCase: IDoLoginUseCase
 {
     private readonly IUsersReadOnlyRepository _repository;
-    private readonly IPasswordEncripter _passwordEncripter;
+    private readonly IPasswordEncrypter _passwordEncrypter;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
 
     public DoLoginUseCase(
         IUsersReadOnlyRepository repository,
-        IPasswordEncripter passwordEncripter,
+        IPasswordEncrypter passwordEncrypter,
         IAccessTokenGenerator accessTokenGenerator)
     {
-        _passwordEncripter = passwordEncripter;
+        _passwordEncrypter = passwordEncrypter;
         _repository = repository;
         _accessTokenGenerator = accessTokenGenerator;
     }
@@ -34,7 +34,7 @@ public class DoLoginUseCase: IDoLoginUseCase
             throw new InvalidLoginException();
         }
         
-        var passwordMatch = _passwordEncripter.Verify(request.Password, user.Password);
+        var passwordMatch = _passwordEncrypter.Verify(request.Password, user.Password);
         if (!passwordMatch)
         {
             throw new InvalidLoginException();

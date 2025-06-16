@@ -15,7 +15,7 @@ namespace BacklogClear.Application.UseCases.Users.Register;
 public class RegisterUserUseCase : IRegisterUserUseCase
 {
     private readonly IMapper _mapper;
-    private readonly IPasswordEncripter _passwordEncripter;
+    private readonly IPasswordEncrypter _passwordEncrypter;
     private readonly IUsersReadOnlyRepository _usersReadOnlyRepository;
     private readonly IUsersWriteOnlyRepository _usersWriteOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -23,14 +23,14 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     
     public RegisterUserUseCase(
         IMapper mapper, 
-        IPasswordEncripter passwordEncripter, 
+        IPasswordEncrypter passwordEncrypter, 
         IUsersReadOnlyRepository usersReadOnlyRepository,
         IUsersWriteOnlyRepository usersWriteOnlyRepository,
         IUnitOfWork unitOfWork,
         IAccessTokenGenerator accessTokenGenerator)
     {
         _mapper = mapper;
-        _passwordEncripter = passwordEncripter;
+        _passwordEncrypter = passwordEncrypter;
         _usersReadOnlyRepository = usersReadOnlyRepository;
         _usersWriteOnlyRepository = usersWriteOnlyRepository;
         _unitOfWork = unitOfWork;
@@ -42,7 +42,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         await Validate(request);
 
         var user = _mapper.Map<User>(request);
-        user.Password = _passwordEncripter.Encrypt(request.Password);
+        user.Password = _passwordEncrypter.Encrypt(request.Password);
         user.UserIdentifier = Guid.NewGuid();
         
         await _usersWriteOnlyRepository.Add(user);
