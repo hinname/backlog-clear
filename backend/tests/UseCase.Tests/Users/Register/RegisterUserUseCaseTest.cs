@@ -1,4 +1,6 @@
 using BacklogClear.Application.UseCases.Users.Register;
+using BacklogClear.Exception.ExceptionBase;
+using BacklogClear.Exception.Resources;
 using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositories;
@@ -25,6 +27,25 @@ public class RegisterUserUseCaseTest
         result.Should().NotBeNull();
         result.Email.Should().Be(request.Email);
         result.Token.Should().NotBeNullOrEmpty();
+    }
+    
+    [Fact]
+    public async Task ErrorNameEmpty()
+    {
+        // Arrange
+        var useCase = CreateUseCase();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Name = string.Empty;
+
+        // Act
+        var act = async () => await useCase.Execute(request);
+
+        // Assert
+        var result = await act.Should().ThrowAsync<ErrorOnValidationException>();
+
+        result.Where(ex =>
+            ex.GetErrorMessages().Count() == 1 &&
+            ex.GetErrorMessages().Contains(ResourceErrorMessages.USER_NAME_REQUIRED));
     }
 
     private RegisterUserUseCase CreateUseCase()
