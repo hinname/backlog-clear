@@ -47,6 +47,70 @@ public class RegisterUserUseCaseTest
             ex.GetErrorMessages().Count() == 1 &&
             ex.GetErrorMessages().Contains(ResourceErrorMessages.USER_NAME_REQUIRED));
     }
+    
+    [Fact]
+    public async Task ErrorEmailEmpty()
+    {
+        // Arrange
+        var useCase = CreateUseCase();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Email = string.Empty;
+
+        // Act
+        var act = async () => await useCase.Execute(request);
+
+        // Assert
+        var result = await act.Should().ThrowAsync<ErrorOnValidationException>();
+
+        result.Where(ex =>
+            ex.GetErrorMessages().Count() == 1 &&
+            ex.GetErrorMessages().Contains(ResourceErrorMessages.USER_EMAIL_REQUIRED));
+    }
+    
+    [Fact]
+    public async Task ErrorEmailAndNameEmpty()
+    {
+        // Arrange
+        var useCase = CreateUseCase();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Email = string.Empty;
+        request.Name = string.Empty;
+
+        // Act
+        var act = async () => await useCase.Execute(request);
+
+        // Assert
+        var result = await act.Should().ThrowAsync<ErrorOnValidationException>();
+
+        result.Where(ex =>
+            ex.GetErrorMessages().Count() == 2 &&
+            ex.GetErrorMessages().Contains(ResourceErrorMessages.USER_EMAIL_REQUIRED) &&
+            ex.GetErrorMessages().Contains(ResourceErrorMessages.USER_NAME_REQUIRED));
+    }
+    
+    [Fact]
+    public async Task ErrorEmailNameAndPasswordEmpty()
+    {
+        // Arrange
+        var useCase = CreateUseCase();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Email = string.Empty;
+        request.Name = string.Empty;
+        request.Password = string.Empty;
+
+        // Act
+        var act = async () => await useCase.Execute(request);
+
+        // Assert
+        var result = await act.Should().ThrowAsync<ErrorOnValidationException>();
+
+        result.Where(ex =>
+            ex.GetErrorMessages().Count() == 3 &&
+            ex.GetErrorMessages().Contains(ResourceErrorMessages.USER_EMAIL_REQUIRED) &&
+            ex.GetErrorMessages().Contains(ResourceErrorMessages.USER_NAME_REQUIRED) &&
+            ex.GetErrorMessages().Contains(ResourceErrorMessages.USER_PASSWORD_REQUIRED));
+    }
+    
 
     private RegisterUserUseCase CreateUseCase()
     {
