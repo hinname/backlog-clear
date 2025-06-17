@@ -1,3 +1,4 @@
+using BacklogClear.Domain.Entities;
 using BacklogClear.Domain.Repositories.Users;
 using Moq;
 
@@ -16,6 +17,14 @@ public class UsersReadOnlyRepositoryBuilder
     {
         _repository.Setup(repo => repo.ExistActiveUserWithEmail(email))
             .ReturnsAsync(true);
+    }
+    
+    public UsersReadOnlyRepositoryBuilder GetUserByEmail(User user)
+    {
+        _repository.Setup(repo => repo.GetUserByEmail(user.Email))
+            .ReturnsAsync(user);
+
+        return this;
     }
     
     public IUsersReadOnlyRepository Build() => _repository.Object;
