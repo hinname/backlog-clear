@@ -20,6 +20,7 @@ public class UsersReadOnlyRepositoryBuilder
             _repository.Setup(repo => repo.ExistActiveUserWithEmail(email))
                 .ReturnsAsync(true);
         }
+        
         return this;
     }
     
