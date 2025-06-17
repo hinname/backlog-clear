@@ -129,19 +129,14 @@ public class RegisterUserUseCaseTest
         var mapper = MapperBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
         var usersWriteOnlyRepository = UsersWriteOnlyRepositoryBuilder.Build();
-        var usersReadOnlyRepository = new UsersReadOnlyRepositoryBuilder();
+        var usersReadOnlyRepository = new UsersReadOnlyRepositoryBuilder().ExistActiveUserWithEmail(email).Build();
         var passwordEncrypter = new PasswordEncrypterBuilder().Build();
         var jwtTokenGenerator = JwtTokenGeneratorBuilder.Build();
-        
-        if (!string.IsNullOrWhiteSpace(email))
-        {
-            usersReadOnlyRepository.ExistActiveUserWithEmail(email);
-        }
         
         return new RegisterUserUseCase(
             mapper, 
             passwordEncrypter, 
-            usersReadOnlyRepository.Build(), 
+            usersReadOnlyRepository,
             usersWriteOnlyRepository, 
             unitOfWork, 
             jwtTokenGenerator);
