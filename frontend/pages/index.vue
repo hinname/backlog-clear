@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import {useHead} from "nuxt/app";
+import Header from "~/components/Header.vue";
+
 useHead({
   titleTemplate: '%s | Backlog Clear',
   meta: [

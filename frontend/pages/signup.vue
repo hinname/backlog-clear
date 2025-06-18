@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import RegisterUserForm from "~/components/auth/RegisterUserForm.vue";
+import Header from "~/components/Header.vue";
 </script>
 
 <template>
