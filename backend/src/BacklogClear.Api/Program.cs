@@ -3,6 +3,7 @@ using BacklogClear.Api.Filters;
 using BacklogClear.Api.Middleware;
 using BacklogClear.Application;
 using BacklogClear.Infrastructure;
+using BacklogClear.Infrastructure.Extensions;
 using BacklogClear.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -84,7 +85,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await MigrateDatabase();
+if (!builder.Configuration.IsTestEnvironment())
+{
+    await MigrateDatabase();
+}
+
 
 app.Run();
 

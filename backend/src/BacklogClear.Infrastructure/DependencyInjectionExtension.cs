@@ -5,6 +5,7 @@ using BacklogClear.Domain.Security.Crytography;
 using BacklogClear.Domain.Security.Tokens;
 using BacklogClear.Infrastructure.DataAccess;
 using BacklogClear.Infrastructure.DataAccess.Repositories;
+using BacklogClear.Infrastructure.Extensions;
 using BacklogClear.Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,9 +18,13 @@ public static class DependencyInjectionExtension
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddRepositories(services);
-        AddDbContext(services, configuration);
         AddSecurity(services);
         AddToken(services, configuration);
+
+        if (!configuration.IsTestEnvironment())
+        {
+            AddDbContext(services, configuration);
+        }
     }
     private static void AddRepositories(IServiceCollection services)
     {
@@ -35,7 +40,7 @@ public static class DependencyInjectionExtension
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("Connection");;
-        var serverVersion = new MySqlServerVersion(new Version(11, 6, 2));
+        var serverVersion = ServerVersion.AutoDetect(connectionString);
         
         services.AddDbContext<BacklogClearDbContext>(config => config.UseMySql(connectionString, serverVersion));
     }
