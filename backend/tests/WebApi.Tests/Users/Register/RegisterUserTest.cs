@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using BacklogClear.Exception.Resources;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -33,5 +34,43 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         
         response.RootElement.GetProperty("email").GetString().Should().Be(request.Email);
         response.RootElement.GetProperty("token").GetString().Should().NotBeNullOrWhiteSpace();
+    }
+
+    [Fact]
+    public async Task Error_Empty_Name()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Name = string.Empty;
+
+        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        var body = await result.Content.ReadAsStreamAsync();
+
+        var response = await JsonDocument.ParseAsync(body);
+
+        var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
+        errors.Should().HaveCount(1).And.Contain(errorMessage => 
+            errorMessage.GetString()!.Equals(ResourceErrorMessages.USER_NAME_REQUIRED));
+    }
+    
+    [Fact]
+    public async Task Error_Empty_Email()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Email = string.Empty;
+
+        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        var body = await result.Content.ReadAsStreamAsync();
+
+        var response = await JsonDocument.ParseAsync(body);
+
+        var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
+        errors.Should().HaveCount(1).And.Contain(errorMessage => 
+            errorMessage.GetString()!.Equals(ResourceErrorMessages.USER_EMAIL_REQUIRED));
     }
 }
