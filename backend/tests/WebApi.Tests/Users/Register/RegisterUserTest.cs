@@ -7,6 +7,7 @@ using BacklogClear.Exception.Resources;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using WebApi.Tests.InlineData;
 
 namespace WebApi.Tests.Users.Register;
 
@@ -77,8 +78,7 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
     }
 
     [Theory]
-    [InlineData("pt-BR")]
-    [InlineData("en")]
+    [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Empty_Name_Language_Middleware(string language)
     {
         var request = RequestRegisterUserJsonBuilder.Build();
