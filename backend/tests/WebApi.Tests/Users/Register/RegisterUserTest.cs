@@ -1,4 +1,6 @@
+using System.Globalization;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using BacklogClear.Exception.Resources;
@@ -72,5 +74,28 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
         errors.Should().HaveCount(1).And.Contain(errorMessage => 
             errorMessage.GetString()!.Equals(ResourceErrorMessages.USER_EMAIL_REQUIRED));
+    }
+
+    [Theory]
+    [InlineData("pt-BR")]
+    [InlineData("en")]
+    public async Task Error_Empty_Name_Language_Middleware(string language)
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Name = string.Empty;
+
+        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(language));
+        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        var body = await result.Content.ReadAsStreamAsync();
+
+        var response = await JsonDocument.ParseAsync(body);
+
+        var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
+        var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("USER_NAME_REQUIRED", new CultureInfo(language));
+        errors.Should().HaveCount(1).And.Contain(errorMessage => 
+            errorMessage.GetString()!.Equals(expectedMessage));
     }
 }
