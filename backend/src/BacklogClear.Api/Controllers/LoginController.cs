@@ -13,6 +13,7 @@ public class LoginController: ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson),StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson),StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ResponseErrorJson),StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Login(
         [FromServices] IDoLoginUseCase useCase,
         [FromBody] RequestLoginJson request)
