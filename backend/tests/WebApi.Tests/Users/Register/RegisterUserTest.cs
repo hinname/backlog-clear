@@ -28,15 +28,15 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterUserJsonBuilder.Build();
 
         var result = await _httpClient.PostAsJsonAsync(METHOD, request);
-
-        result.StatusCode.Should().Be(HttpStatusCode.Created);
-
+        
         var body = await result.Content.ReadAsStreamAsync();
 
         var response = await JsonDocument.ParseAsync(body);
         
         response.RootElement.GetProperty("email").GetString().Should().Be(request.Email);
         response.RootElement.GetProperty("token").GetString().Should().NotBeNullOrWhiteSpace();
+        
+        result.StatusCode.Should().Be(HttpStatusCode.Created);
     }
 
     [Fact]
@@ -46,9 +46,7 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         request.Name = string.Empty;
 
         var result = await _httpClient.PostAsJsonAsync(METHOD, request);
-
-        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
+        
         var body = await result.Content.ReadAsStreamAsync();
 
         var response = await JsonDocument.ParseAsync(body);
@@ -56,6 +54,8 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
         errors.Should().HaveCount(1).And.Contain(errorMessage => 
             errorMessage.GetString()!.Equals(ResourceErrorMessages.USER_NAME_REQUIRED));
+        
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
     
     [Fact]
@@ -66,8 +66,6 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
 
         var result = await _httpClient.PostAsJsonAsync(METHOD, request);
 
-        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
         var body = await result.Content.ReadAsStreamAsync();
 
         var response = await JsonDocument.ParseAsync(body);
@@ -75,6 +73,8 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
         errors.Should().HaveCount(1).And.Contain(errorMessage => 
             errorMessage.GetString()!.Equals(ResourceErrorMessages.USER_EMAIL_REQUIRED));
+        
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
     [Theory]
@@ -87,8 +87,6 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(language));
         var result = await _httpClient.PostAsJsonAsync(METHOD, request);
 
-        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
         var body = await result.Content.ReadAsStreamAsync();
 
         var response = await JsonDocument.ParseAsync(body);
@@ -97,5 +95,7 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("USER_NAME_REQUIRED", new CultureInfo(language));
         errors.Should().HaveCount(1).And.Contain(errorMessage => 
             errorMessage.GetString()!.Equals(expectedMessage));
+        
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 }
