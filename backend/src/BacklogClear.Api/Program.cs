@@ -1,7 +1,9 @@
 using System.Text;
 using BacklogClear.Api.Filters;
 using BacklogClear.Api.Middleware;
+using BacklogClear.Api.Token;
 using BacklogClear.Application;
+using BacklogClear.Domain.Security.Tokens;
 using BacklogClear.Infrastructure;
 using BacklogClear.Infrastructure.Extensions;
 using BacklogClear.Infrastructure.Migrations;
@@ -50,6 +52,10 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+
+builder.Services.AddHttpContextAccessor();
 
 // Configure authentication and authorization
 var signingKey = builder.Configuration.GetValue<string>("Settings:Jwt:SigningKey");

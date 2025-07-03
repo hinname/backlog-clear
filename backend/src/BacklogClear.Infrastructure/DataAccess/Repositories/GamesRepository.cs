@@ -23,17 +23,17 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
     
     async Task<Game?> IGamesReadOnlyRepository.GetById(long id)
     {
-        return await _dbContext.Games.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.Games.AsNoTracking().FirstOrDefaultAsync(game => game.Id == id);
     }
     
-    async Task<Game?> IGamesUpdateOnlyRepository.GetById(long id)
+    async Task<Game?> IGamesUpdateOnlyRepository.GetById(User user, long id)
     {
-        return await _dbContext.Games.FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.Games.FirstOrDefaultAsync(game => game.Id == id && game.UserId == user.Id);
     }
     
     public async Task<bool> Delete(long id)
     {
-        var game = await _dbContext.Games.FirstOrDefaultAsync(x => x.Id == id);
+        var game = await _dbContext.Games.FirstOrDefaultAsync(game => game.Id == id);
         if (game == null)
         {
             return false;

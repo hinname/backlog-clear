@@ -3,10 +3,12 @@ using BacklogClear.Domain.Repositories.Games;
 using BacklogClear.Domain.Repositories.Users;
 using BacklogClear.Domain.Security.Crytography;
 using BacklogClear.Domain.Security.Tokens;
+using BacklogClear.Domain.Services.LoggedUser;
 using BacklogClear.Infrastructure.DataAccess;
 using BacklogClear.Infrastructure.DataAccess.Repositories;
 using BacklogClear.Infrastructure.Extensions;
 using BacklogClear.Infrastructure.Security.Tokens;
+using BacklogClear.Infrastructure.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,6 +49,7 @@ public static class DependencyInjectionExtension
     private static void AddSecurity(this IServiceCollection services)
     {
         services.AddScoped<IPasswordEncrypter, Security.Cryptography.BCrypt>();
+        services.AddScoped<ILoggedUser, LoggedUser>();
     }
 
     private static void AddToken(IServiceCollection services, IConfiguration configuration)

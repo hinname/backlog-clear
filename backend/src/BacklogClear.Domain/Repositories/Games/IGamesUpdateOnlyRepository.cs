@@ -4,6 +4,6 @@ namespace BacklogClear.Domain.Repositories.Games;
 
 public interface IGamesUpdateOnlyRepository
 {
-    Task<Game?> GetById(long id);
+    Task<Game?> GetById(User user, long id);
     void Update(Game game);
 }
