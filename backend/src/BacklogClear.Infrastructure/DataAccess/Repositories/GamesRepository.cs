@@ -16,14 +16,14 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
     {
         await _dbContext.Games.AddAsync(game);
     }
-    public async Task<List<Game>> GetAll()
+    public async Task<List<Game>> GetAll(User user)
     {
-        return await _dbContext.Games.AsNoTracking().ToListAsync();
+        return await _dbContext.Games.AsNoTracking().Where(games => games.UserId == user.Id).ToListAsync();
     }
     
-    async Task<Game?> IGamesReadOnlyRepository.GetById(long id)
+    async Task<Game?> IGamesReadOnlyRepository.GetById(User user, long id)
     {
-        return await _dbContext.Games.AsNoTracking().FirstOrDefaultAsync(game => game.Id == id);
+        return await _dbContext.Games.AsNoTracking().FirstOrDefaultAsync(game => game.Id == id && game.UserId == user.Id);
     }
     
     async Task<Game?> IGamesUpdateOnlyRepository.GetById(User user, long id)
@@ -31,15 +31,10 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
         return await _dbContext.Games.FirstOrDefaultAsync(game => game.Id == id && game.UserId == user.Id);
     }
     
-    public async Task<bool> Delete(long id)
+    public async Task Delete(long id)
     {
-        var game = await _dbContext.Games.FirstOrDefaultAsync(game => game.Id == id);
-        if (game == null)
-        {
-            return false;
-        }
-        _dbContext.Games.Remove(game);
-        return true;
+        var game = await _dbContext.Games.FindAsync(id);
+        if (game != null) _dbContext.Games.Remove(game);
     }
     public void Update(Game game)
     {
