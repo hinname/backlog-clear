@@ -43,7 +43,7 @@
         <value>Start playing date cannot be setted in a game with "backlog"status.</value>
     </data>
     <data name="END_DATE_NOT_ALLOWED" xml:space="preserve">
-        <value>End playing date cannot be setted for a game that is not in "played" status.</value>
+        <value>End playing date cannot be setted for a game that is not in "completed" status.</value>
     </data>
     <data name="START_DATE_MUST_BE_IN_PAST" xml:space="preserve">
         <value>Start playing date must be in the past.</value>

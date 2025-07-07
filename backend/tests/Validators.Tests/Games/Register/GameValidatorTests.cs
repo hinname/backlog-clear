@@ -97,4 +97,65 @@ public class GameValidatorTests
         result.Errors.Should().ContainSingle().And
             .Contain(e => e.ErrorMessage.Equals(ResourceErrorMessages.STATUS_INVALID));
     }
+
+    [Fact]
+    public void ErrorStartDateOnBacklog()
+    {
+        //Arrange
+        var validator = new GameValidator();
+        var request = RequestRegisterGameJsonBuilder.Build();
+        request.Status = Status.Backlog;
+        request.StartPlayingDate = DateTime.MinValue;
+        //Act
+        var result = validator.Validate(request);
+        //Assert
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And
+            .Contain(e => e.ErrorMessage.Equals(ResourceErrorMessages.START_DATE_NOT_ALLOWED));
+    }
+    [Fact]
+    public void ErrorEndDateOnBacklog()
+    {
+        //Arrange
+        var validator = new GameValidator();
+        var request = RequestRegisterGameJsonBuilder.Build();
+        request.Status = Status.Backlog;
+        request.EndPlayingDate = DateTime.MinValue;
+        //Act
+        var result = validator.Validate(request);
+        //Assert
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And
+            .Contain(e => e.ErrorMessage.Equals(ResourceErrorMessages.END_DATE_NOT_ALLOWED));
+    }
+    [Fact]
+    public void ErrorStartDateNotPast()
+    {
+        //Arrange
+        var validator = new GameValidator();
+        var request = RequestRegisterGameJsonBuilder.Build();
+        request.Status = Status.Playing;
+        request.StartPlayingDate = DateTime.UtcNow.AddDays(1);
+        //Act
+        var result = validator.Validate(request);
+        //Assert
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And
+            .Contain(e => e.ErrorMessage.Equals(ResourceErrorMessages.START_DATE_MUST_BE_IN_PAST));
+    }
+    [Fact]
+    public void ErrorEndDateNotPast()
+    {
+        //Arrange
+        var validator = new GameValidator();
+        var request = RequestRegisterGameJsonBuilder.Build();
+        request.Status = Status.Completed;
+        request.EndPlayingDate = DateTime.UtcNow.AddDays(1);
+        //Act
+        var result = validator.Validate(request);
+        //Assert
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And
+            .Contain(e => e.ErrorMessage.Equals(ResourceErrorMessages.END_DATE_MUST_BE_IN_PAST));
+    }
 }
