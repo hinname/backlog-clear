@@ -2,6 +2,7 @@ using BacklogClear.Application.UseCases.Games.Register.Reports.Pdf.Colors;
 using BacklogClear.Application.UseCases.Games.Reports.Pdf.Fonts;
 using BacklogClear.Domain.Extensions;
 using BacklogClear.Domain.Reports;
+using BacklogClear.Domain.Services.LoggedUser;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
@@ -13,14 +14,18 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
 {
     private const int HEIGHT_ROW_GAMES_TABLE = 16;
     private readonly IGamesReadOnlyRepository _repository;
-    public GenerateGamesReportPdfUseCase(IGamesReadOnlyRepository repository)
+    private readonly ILoggedUser _loggedUser;
+    public GenerateGamesReportPdfUseCase(IGamesReadOnlyRepository repository, ILoggedUser loggedUser)
     {
         _repository = repository;
+        _loggedUser = loggedUser;
         GlobalFontSettings.FontResolver = new GamesReportFontResolver();
     }
 
     public async Task<byte[]> Execute(DateOnly initialStartPlayingDate, DateOnly endingStartPlayingDate)
     {
+        var loggedUser = await _loggedUser.Get();
+            
         //Tratando a data inicial e final para DateTime
         var initialDate = initialStartPlayingDate.ToDateTime(new TimeOnly(
             hour: 0,
@@ -33,14 +38,14 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
             second: 59
         ));
         
-        var games = await _repository.FilterByStartPlayingDate(initialDate, endingDate);
+        var games = await _repository.FilterByStartPlayingDate(initialDate, endingDate, loggedUser);
         if (games.Count == 0)
             return [];
         
-        var document = CreateDocument();
+        var document = CreateDocument(loggedUser.Name);
         var page = CreatePage(document, initialStartPlayingDate, endingStartPlayingDate);
         var totalGames = games.Count;
-        CreateHeader(page, initialStartPlayingDate, endingStartPlayingDate, totalGames);
+        CreateHeader(page, initialStartPlayingDate, endingStartPlayingDate, totalGames, loggedUser.Name);
 
         foreach (var game in games)
         {
@@ -76,14 +81,14 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         return RenderDocument(document);
     }
     
-    private Document CreateDocument()
+    private Document CreateDocument(string author)
     {
         var document = new Document
         {
             Info =
             {
                 Title = $"{ResourceReportGenerationMessages.GAME_REPORT}",
-                Author = "Test"
+                Author = author
             }
         };
         
@@ -107,14 +112,14 @@ public class GenerateGamesReportPdfUseCase : IGenerateGamesReportPdfUseCase
         
         return section;
     }
-    private void CreateHeader(Section page, DateOnly startDate, DateOnly endDate, int totalGames)
+    private void CreateHeader(Section page, DateOnly startDate, DateOnly endDate, int totalGames, string name)
     {
         
         page.AddParagraph($"{ResourceReportGenerationMessages.GAME_REPORT} ({startDate.ToString("dd/MM/yyyy")} - {endDate.ToString("dd/MM/yyyy")})")
                         .Format.Font.Size = 16;
         
         var paragraphHeader = page.AddParagraph();
-        paragraphHeader.AddFormattedText("Hey, User!", new Font{ Name = FontHelper.RALEWAY_BLACK, Size = 16});
+        paragraphHeader.AddFormattedText($"Hey, {name}!", new Font{ Name = FontHelper.RALEWAY_BLACK, Size = 16});
         
         var paragraph = page.AddParagraph();
         paragraph.Format.SpaceBefore = 40;

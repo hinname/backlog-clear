@@ -2,6 +2,7 @@ using BacklogClear.Domain.Enums;
 using BacklogClear.Domain.Extensions;
 using BacklogClear.Domain.Reports;
 using BacklogClear.Domain.Repositories.Games;
+using BacklogClear.Domain.Services.LoggedUser;
 using ClosedXML.Excel;
 
 namespace BacklogClear.Application.UseCases.Games.Register.Reports.Excel;
@@ -9,13 +10,17 @@ namespace BacklogClear.Application.UseCases.Games.Register.Reports.Excel;
 public class GenerateGamesReportExcelUseCase : IGenerateGamesReportExcelUseCase
 {
     private readonly IGamesReadOnlyRepository _repository;
-    public GenerateGamesReportExcelUseCase(IGamesReadOnlyRepository repository)
+    private readonly ILoggedUser _loggedUser;
+    public GenerateGamesReportExcelUseCase(IGamesReadOnlyRepository repository, ILoggedUser loggedUser)
     {
         _repository = repository;
+        _loggedUser = loggedUser;
     }
 
     public async Task<byte[]> Execute(DateOnly initialStartPlayingDate, DateOnly endingStartPlayingDate)
     {
+        var loggedUser = await _loggedUser.Get();
+        
         //Tratando a data inicial e final para DateTime
         var initialDate = initialStartPlayingDate.ToDateTime(new TimeOnly(
                 hour: 0,
@@ -28,13 +33,13 @@ public class GenerateGamesReportExcelUseCase : IGenerateGamesReportExcelUseCase
                 second: 59
             ));
         
-        var games = await _repository.FilterByStartPlayingDate(initialDate, endingDate);
+        var games = await _repository.FilterByStartPlayingDate(initialDate, endingDate, loggedUser);
         if (games.Count == 0)
             return [];
         
         using var workbook = new XLWorkbook();
 
-        workbook.Author = "Test";
+        workbook.Author = loggedUser.Name;
         workbook.Style.Font.FontSize = 12;
         workbook.Style.Font.FontName = "Times New Roman";
         

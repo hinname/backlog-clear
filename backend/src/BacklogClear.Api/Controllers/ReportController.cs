@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using BacklogClear.Application.UseCases.Games.Register.Reports.Excel;
 using BacklogClear.Application.UseCases.Games.Register.Reports.Pdf;
+using BacklogClear.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ namespace BacklogClear.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = Roles.ADMIN)]
     public class ReportController : ControllerBase
     {
         [HttpGet("excel")]

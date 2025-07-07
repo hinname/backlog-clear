@@ -60,11 +60,11 @@ internal class GamesRepository: IGamesReadOnlyRepository, IGamesWriteOnlyReposit
     //         .ThenBy(game => game.Title)
     //         .ToListAsync();
     // }
-    public async Task<List<Game>> FilterByStartPlayingDate(DateTime initialStartDate, DateTime finalStartDate)
+    public async Task<List<Game>> FilterByStartPlayingDate(DateTime initialStartDate, DateTime finalStartDate, User user)
     {
         return await _dbContext.Games
             .AsNoTracking()
-            .Where(game => game.StartPlayingDate >= initialStartDate && game.StartPlayingDate <= finalStartDate)
+            .Where(game => game.UserId == user.Id &&  game.StartPlayingDate >= initialStartDate && game.StartPlayingDate <= finalStartDate)
             .OrderBy(game => game.StartPlayingDate)
             .ThenBy(game => game.Title)
             .ToListAsync();
