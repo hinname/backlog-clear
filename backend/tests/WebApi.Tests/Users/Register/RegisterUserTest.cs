@@ -16,10 +16,12 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
     private const string METHOD = "api/user";
     
     private readonly HttpClient _httpClient;
+   
 
     public RegisterUserTest(CustomWebApplicationFactory factory)
     {
         _httpClient = factory.CreateClient();
+        
     }
     
     [Fact]

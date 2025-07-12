@@ -1,5 +1,6 @@
 using BacklogClear.Domain.Entities;
 using BacklogClear.Domain.Security.Crytography;
+using BacklogClear.Domain.Security.Tokens;
 using BacklogClear.Infrastructure.DataAccess;
 using CommonTestUtilities.Entities;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     private User _user;
     private string _password;
+    private string _token;
 
     public string GetEmail()
     {
@@ -22,6 +24,10 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetPassword()
     {
         return _password;
+    }
+    public string GetToken()
+    {
+        return _token;
     }
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -40,7 +46,11 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 var dbContext = scope.ServiceProvider.GetRequiredService<BacklogClearDbContext>();
                 var passwordEncrypter = scope.ServiceProvider.GetRequiredService<IPasswordEncrypter>();
                 
+                
                 StartDatabase(dbContext, passwordEncrypter);
+
+                var tokenGenerator = scope.ServiceProvider.GetRequiredService<IAccessTokenGenerator>();
+                _token = tokenGenerator.Generate(_user);
             });
     }
 
