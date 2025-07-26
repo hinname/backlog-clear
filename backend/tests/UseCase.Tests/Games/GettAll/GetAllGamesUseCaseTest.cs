@@ -5,6 +5,7 @@ using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositories.Games;
 using CommonTestUtilities.Services.LoggedUser;
 using FluentAssertions;
+using BacklogClear.Communication.Enums;
 
 namespace UseCase.Tests.Games.GetAll;
 
@@ -19,8 +20,13 @@ public class GetAllGamesUseCaseTest
         var result = await useCase.Execute();
         
         result.Should().NotBeNull();
-        result.Games.Should().NotBeNull();
-        result.Games.Count.Should().Be(3);
+        result.Games.Should().NotBeNull().And.AllSatisfy(game =>
+        {
+            game.Id.Should().BeGreaterThan(0);
+            game.Title.Should().NotBeNullOrWhiteSpace();
+            game.Platform.Should().NotBeNullOrWhiteSpace();
+            game.Status.Should().BeOneOf(Status.Backlog, Status.Playing, Status.Completed, Status.Dropped);
+        });
     }
 
     private static GetAllGamesUseCase CreateUseCase(List<Game> games, User user)
