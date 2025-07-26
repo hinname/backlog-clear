@@ -11,25 +11,15 @@ using WebApi.Tests.InlineData;
 
 namespace WebApi.Tests.Users.Register;
 
-public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
+public class RegisterUserTest(CustomWebApplicationFactory factory) : BacklogClearClassFixture(factory)
 {
     private const string METHOD = "api/user";
-    
-    private readonly HttpClient _httpClient;
-   
-
-    public RegisterUserTest(CustomWebApplicationFactory factory)
-    {
-        _httpClient = factory.CreateClient();
-        
-    }
-    
     [Fact]
     public async Task Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request);
         
         var body = await result.Content.ReadAsStreamAsync();
 
@@ -47,7 +37,7 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;
 
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request);
         
         var body = await result.Content.ReadAsStreamAsync();
 
@@ -66,7 +56,7 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Email = string.Empty;
 
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request);
 
         var body = await result.Content.ReadAsStreamAsync();
 
@@ -86,8 +76,7 @@ public class RegisterUserTest: IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;
 
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(language));
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request, culture: language);
 
         var body = await result.Content.ReadAsStreamAsync();
 

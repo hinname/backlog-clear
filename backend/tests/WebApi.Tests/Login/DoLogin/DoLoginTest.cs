@@ -10,17 +10,15 @@ using WebApi.Tests.InlineData;
 
 namespace WebApi.Tests.Login.DoLogin;
 
-public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
+public class DoLoginTest : BacklogClearClassFixture
 {
     private const string METHOD = "api/login";
 
     private readonly string _email;
     private readonly string _password;
-    private readonly HttpClient _httpClient;
 
-    public DoLoginTest(CustomWebApplicationFactory factory)
+    public DoLoginTest(CustomWebApplicationFactory factory) : base(factory)
     {
-        _httpClient = factory.CreateClient();
         _email = factory.GetEmail();
         _password = factory.GetPassword();
     }
@@ -34,7 +32,7 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
             Password = _password
         };
 
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request);
         
         var body = await result.Content.ReadAsStreamAsync();
 
@@ -57,8 +55,7 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
         };
         request.Email = string.Empty;
 
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(language));
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request, culture: language);
 
         var body = await result.Content.ReadAsStreamAsync();
 
@@ -81,7 +78,7 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
             Password = "StarWithoutNumber123@"
         };
 
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request);
 
         var body = await result.Content.ReadAsStreamAsync();
 
@@ -103,7 +100,7 @@ public class DoLoginTest : IClassFixture<CustomWebApplicationFactory>
             Password = _password
         };
 
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request);
 
         var body = await result.Content.ReadAsStreamAsync();
 

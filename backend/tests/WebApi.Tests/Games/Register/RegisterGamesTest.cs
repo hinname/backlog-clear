@@ -10,15 +10,13 @@ using WebApi.Tests.InlineData;
 
 namespace WebApi.Tests.Games.Register;
 
-public class RegisterGamesTest : IClassFixture<CustomWebApplicationFactory>
+public class RegisterGamesTest : BacklogClearClassFixture
 {
     private const string METHOD = "api/game";
-    private readonly HttpClient _httpClient;
     private readonly string _token;
 
-    public RegisterGamesTest(CustomWebApplicationFactory factory)
+    public RegisterGamesTest(CustomWebApplicationFactory factory) : base(factory)
     {
-        _httpClient = factory.CreateClient();
         _token = factory.GetToken();
     }
 
@@ -26,9 +24,8 @@ public class RegisterGamesTest : IClassFixture<CustomWebApplicationFactory>
     public async Task Success()
     {
         var request = RequestRegisterGameJsonBuilder.Build();
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
         
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request, token: _token);
         
         var body = await result.Content.ReadAsStreamAsync();
         
@@ -43,10 +40,7 @@ public class RegisterGamesTest : IClassFixture<CustomWebApplicationFactory>
         var request = RequestRegisterGameJsonBuilder.Build();
         request.Title = string.Empty;
         
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(culture));
-
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request, token: _token, culture: culture);
         var body = await result.Content.ReadAsStreamAsync();
         var response = await JsonDocument.ParseAsync(body);
         var errors = response.RootElement.GetProperty("errorMessages").EnumerateArray();
