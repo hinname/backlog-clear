@@ -56,10 +56,22 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     private void StartDatabase(BacklogClearDbContext dbContext, IPasswordEncrypter passwordEncrypter)
     {
+        AddUsers(dbContext, passwordEncrypter);
+        AddGames(dbContext, _user);
+        dbContext.SaveChanges();
+    }
+    
+    private void AddUsers(BacklogClearDbContext dbContext, IPasswordEncrypter passwordEncrypter)
+    {
         _user = UserBuilder.Build();
         _password = _user.Password;
         _user.Password = passwordEncrypter.Encrypt(_user.Password);
         dbContext.Users.Add(_user);
-        dbContext.SaveChanges();
+    }
+    
+    private void AddGames(BacklogClearDbContext dbContext, User user)
+    {
+        var games = GameBuilder.Collection(user);
+        dbContext.Games.AddRange(games);
     }
 }
