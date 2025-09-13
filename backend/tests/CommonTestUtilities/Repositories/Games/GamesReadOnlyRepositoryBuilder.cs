@@ -18,6 +18,13 @@ public class GamesReadOnlyRepositoryBuilder
         _repository.Setup(repo => repo.GetAll(user)).ReturnsAsync(games);
         return this;
     }
+
+    public GamesReadOnlyRepositoryBuilder GetById(Game? game, User user)
+    {
+        if (game is not null)
+            _repository.Setup(repo => repo.GetById(user, game.Id)).ReturnsAsync(game);
+        return this;
+    }
     
     public IGamesReadOnlyRepository Build() => _repository.Object;
 }

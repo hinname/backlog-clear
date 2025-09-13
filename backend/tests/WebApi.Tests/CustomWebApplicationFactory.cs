@@ -12,6 +12,7 @@ namespace WebApi.Tests;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
+    private Game _game;
     private User _user;
     private string _password;
     private string _token;
@@ -29,6 +30,12 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
         return _token;
     }
+    
+    public long GetGameId()
+    {
+        return _game.Id;
+    }
+    
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Test")
@@ -64,6 +71,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private void AddUsers(BacklogClearDbContext dbContext, IPasswordEncrypter passwordEncrypter)
     {
         _user = UserBuilder.Build();
+        _game = GameBuilder.Build(_user);
         _password = _user.Password;
         _user.Password = passwordEncrypter.Encrypt(_user.Password);
         dbContext.Users.Add(_user);
